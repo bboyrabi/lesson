@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>課題２</title>
+    <style media="screen">
+      .layout.horizontal,
+      .layout.vertical {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+      }
+      .layout.inline {
+        display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+        display: inline-flex;
+      }
+      .layout.horizontal {
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+      }
+      .layout.vertical {
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+      }
+      .layout.wrap {
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+      .margin-box {
+        margin: 0 12px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h2>四則演算</h2>
+
+    <!-- SUM -->
+    <h3>足し算</h3>
+    <div class="layout horizontal">
+      <input id="sum1" type="text" name="" value="10">
+      <div class="margin-box">+</div>
+      <input id="sum2" type="text" name="" value="10">
+      <div class="margin-box">=</div>
+      <div id="sumAnswer" class="">?</div>
+    </div>
+
+    <!-- DIFF -->
+    <h3>引き算</h3>
+    <div class="layout horizontal">
+      <input id="diff1" type="text" name="" value="10">
+      <div class="margin-box">+</div>
+      <input id="diff2" type="text" name="" value="10">
+      <div class="margin-box">=</div>
+      <div id="diffAnswer" class="">?</div>
+    </div>
+
+    <!-- MOD -->
+    <h3>割り算</h3>
+    <div class="layout horizontal">
+      <input id="mod1" type="text" name="" value="10">
+      <div class="margin-box">+</div>
+      <input id="mod2" type="text" name="" value="10">
+      <div class="margin-box">=</div>
+      <div id="modAnswer" class="">?</div>
+    </div>
+
+    <!-- MULT -->
+    <h3>掛け算</h3>
+    <div class="layout horizontal">
+      <input id="mult1" type="text" name="" value="10">
+      <div class="margin-box">+</div>
+      <input id="mult2" type="text" name="" value="10">
+      <div class="margin-box">=</div>
+      <div id="multAnswer" class="">?</div>
+    </div>
+
+    <!-- for -->
+    <h3>for文</h3>
+    <div class="layout horizontal">
+      <div>['a', 'b', 'c']配列からfor文を使って'b'のindex番号を返却する関数を作成してください。</div>
+      <div class="margin-box">index = </div>
+      <div id="forIndex">?</div>
+    </div>
+
+    <!-- if -->
+    <h3>if文</h3>
+    <div class="layout horizontal">
+      <div>数値が偶数なら"偶数"、奇数なら"奇数"、0なら"ゼロ"、それ以外の値は"数値ではない"を表示させてください。</div>
+      <input id="if1" type="text" name="" value="10">
+      <div class="margin-box">=</div>
+      <div id="ifAnswer" class="">?</div>
+    </div>
+
+    <!-- switch -->
+    <h3>switch文</h3>
+    <div class="layout horizontal">
+      <div>switch文を使って'dog'であれば"犬"、'cat'であれば"猫"、それ以外なら"その他"を表示させてください。</div>
+      <input id="switch1" type="text" name="" value="dog">
+      <div class="margin-box">=</div>
+      <div id="switchAnswer" class="">?</div>
+    </div>
+
+    <button type="button" name="button" onclick="_calcAll();">計算する</button>
+
+    <script type="text/javascript">
+      function _calcAll() {
+        // SUM
+        const sumResult = sum(
+          document.getElementById('sum1').value,
+          document.getElementById('sum2').value
+        );
+        document.getElementById('sumAnswer').innerText = sumResult;
+
+        // DIFF
+        const diffResult = diff(
+          document.getElementById('diff1').value,
+          document.getElementById('diff2').value
+        );
+        document.getElementById('diffAnswer').innerText = diffResult;
+
+        // MOD
+        const modResult = mod(
+          document.getElementById('mod1').value,
+          document.getElementById('mod2').value
+        );
+        document.getElementById('modAnswer').innerText = modResult;
+
+        // MULT
+        const multResult = mult(
+          document.getElementById('mult1').value,
+          document.getElementById('mult2').value
+        );
+        document.getElementById('multAnswer').innerText = multResult;
+
+        // for
+        const forIndex = getForIndex(['a', 'b', 'c']);
+        document.getElementById('forIndex').innerText = forIndex;
+
+        // if
+        const ifResult = ifDemo(
+          document.getElementById('if1').value
+        );
+        document.getElementById('ifAnswer').innerText = ifResult;
+
+        // switch
+        const switchResult = switchDemo(
+          document.getElementById('switch1').value
+        );
+        document.getElementById('switchAnswer').innerText = switchResult;
+      }
+
+      /**
+       * 足し算した結果を返却する処理。
+       * 文字列が入力されると任意の文言を返却します。
+       * @param x
+       * @param y
+       * @return number
+       */
+      function sum(x, y) {
+        if(isNaN(x) || isNaN(y))
+          return '文字列が入力されています。';
+        x = x * 1;
+        y = y * 1;
+        return x + y;
+      }
+
+      function diff(x, y) {
+        console.log({x, y});
+        // TODO: ここを作成してください。
+      }
+
+      function mod(x, y) {
+        console.log({x, y});
+        // TODO: ここを作成してください。
+      }
+
+      function mult(x, y) {
+        console.log({x, y});
+        // TODO: ここを作成してください。
+      }
+
+      function getForIndex(array) {
+        console.log(array);
+        // TODO: ここを作成してください。
+      }
+
+      function ifDemo(x) {
+        console.log({x});
+        // TODO: ここを作成してください。
+      }
+
+      function switchDemo(str) {
+        console.log({str});
+        // TODO: 新しいfunctionを作成してここで呼び出してください。
+      }
+    </script>
+  </body>
+</html>
