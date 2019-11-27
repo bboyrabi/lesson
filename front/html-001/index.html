@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- point:
+         この.htmlファイルのタイトルを設定します。
+         主にブラウザや検索エンジンが使用します。
+    -->
+    <title>課題１</title>
+
+    <!-- point:
+         styleは基本的にmetaタグ内に記入します。
+         外部から読み込む場合も、ここで読み込みます。
+         body内で設定することもできます。
+    -->
+    <style media="screen">
+      h1 {
+        color: #2196f3;
+      }
+      .text-green {
+        color: #4caf50;
+      }
+      .text-red {
+        color: #f44336;
+      }
+    </style>
+  </head>
+  <!-- point:
+       bodyタグにはブラウザに表示するhtmlタグなどを記述します。
+  -->
+  <body>
+    <h1>Hello World</h1>
+
+    <input id="demoInput" type="text" name="demo" placeholder="何か入力してね">
+
+    <h3>入力された文字</h3>
+    <p id="demoInputText"></p>
+
+    <h3>文字数</h3>
+    <p id="demoInputTextLength"></p>
+
+    <h3>最初の文字</h3>
+    <p id="demoInputTextFirstChar"></p>
+
+    <h3>最後の文字</h3>
+    <p id="demoInputTextLastChar"></p>
+
+    <button type="button"
+            name="button"
+            onclick="onClickDemo('ButtonをClickしました');">ボタン</button>
+
+    <h3>数字の数</h3>
+    <p id="numberSize"></p>
+
+    <!-- point:
+         scriptタグはJavaScriptを記述する際に必要です。
+         外部から読み込むこともできます。
+         基本的にbodyタグの最下部で記述あるいは読み込むことで、
+         上記のhtmlタグを先に画面に表示し、scriptの読み込みが完了する前に
+         ユーザーの操作を可能にします。
+    -->
+    <script type="text/javascript">
+      window.onload = function () {
+        document.getElementById("demoInput").onkeyup = function(e){
+          onKeyupDemo(e);
+        };
+      }
+
+      /**
+       * inputにカーソルが設定されている状態で、ボタン押下後に呼び出される関数です。
+       */
+      function onKeyupDemo(e) {
+
+        // eはクリックイベントです。
+        console.log(e.target.value);
+
+        // demoInputに入力された値。
+        const demoTextValue = e.target.value;
+        // demoInputに入力された値の文字列のサイズ。
+        const textLength = demoTextValue.length;
+
+        // 値をdemoInputTextに設定します。
+        document.getElementById("demoInputText").innerText = demoTextValue;
+        // 値のサイズをdemoInputTextLengthに設定します。
+        document.getElementById("demoInputTextLength").innerText = textLength;
+        // 値の最初の文字をdemoInputTextFirstCharに設定します。未入力の場合は''が設定されます。
+        document.getElementById("demoInputTextFirstChar").innerText =
+          demoTextValue ? demoTextValue[0] : '';
+        // 値の最後の文字をdemoInputTextLastCharに設定します。未入力の場合は''が設定されます。
+        document.getElementById("demoInputTextLastChar").innerText =
+          demoTextValue ? demoTextValue[textLength - 1] : '';
+      }
+
+      /**
+       * ボタンがクリックされたときのイベントです。
+       *
+       * @param text - console.logに表示します。
+       */
+      function onClickDemo(text) {
+
+        console.log(text);
+
+        /**
+         * demoInputに入力されている値から数字と判定される文字のサイズを返却します。
+         *
+         * @return Number
+         */
+        const calcNumberSize = () => {
+          const value = document.getElementById("demoInput").value;
+
+          // 未入力であれば0を返却します。
+          if(!value) return 0;
+
+          let size = 0; // サイズの初期値
+
+          // 文字列のサイズだけループします。
+          for (let i = 0; i < value.length; i++) {
+            if(!isNaN(value[i]))
+              size++; // 数値と判断できればサイズに1を足します。
+          }
+          return size;  // サイズを返却します。
+        };
+
+        const size = calcNumberSize(); // 関数を呼び出します。
+
+        // サイズを表示します。
+        const numberSizeElement = document.getElementById("numberSize");
+        numberSizeElement.innerText = size;
+
+        // sizeが0であればclassNameを削除します。
+        if(size == 0) {
+          numberSizeElement.className = '';
+          // TODO: CSSはstyleで直接指定することもできます。
+          return;
+        }
+        // sizeが奇数であればtext-redを設定し、偶数であればtext-greenを設定します。
+        numberSizeElement.className = size % 2 == 0 ? 'text-green' : 'text-red';
+      }
+    </script>
+  </body>
+</html>
