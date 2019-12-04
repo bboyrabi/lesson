@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>課題３</title>
+    <style media="screen">
+      body {
+        color: #4a4a4a;
+        font-size: 1em;
+        font-weight: 400;
+        line-height: 1.5;
+        font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+      }
+
+      h2 {
+        color: #4caf50;
+      }
+      h3 {
+        color: #8bc34a;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Webページの理解を深めよう</h1>
+
+    <h2>HTMLを理解しよう</h2>
+
+    <h3>タグ</h3>
+    <div>
+      <p>HTMLタグには多くのタグがあります。</p>
+      <p><strong>div, span, p, ul, li, h1, h2, img, table, form, style, script</strong>など、どんな種類があるのか検索してみましょう。</p>
+      <!-- https://developer.mozilla.org/ja/docs/Web/HTML/Element -->
+    </div>
+
+    <h3>DOM Tree(入れ子構造)を理解しよう</h3>
+    <div>
+      <p>HTMLはタグの中にタグを書いて記述します。これらすべての要素にCSSでスタイルを設定したり、JavaScriptでアクセスすることが可能です。</p>
+    </div>
+
+    <h3>SEOに関連するタグは覚えておこう</h3>
+    <div>
+      <p>SEOに影響のあるタグがあります。<strong>title, meta, h1, h2, canonical</strong>などについて調べてみましょう。</p>
+    </div>
+
+    <h2>CSSを理解しよう</h2>
+
+    <h3>idとclassについて</h3>
+    <div>
+      <p>id, classの違いと特徴を調べてみましょう。</p>
+    </div>
+
+    <h3>CSSの記述の仕方</h3>
+    <div>
+      <ul>
+        <li>styleタグで作成する</li>
+        <li>タグのstyleプロパティに直接記述する</li>
+        <li>外部のCSSを読み込む</li>
+      </ul>
+      <p>上記を実際に試してみよう。</p>
+      <strong>適用される優先順位についても調べてみましょう。</strong>
+    </div>
+
+    <h2>JavaScriptを理解しよう</h2>
+
+    <h3>基本的な文法について</h3>
+    <div>
+      <a href="https://jsprimer.net/basic/" target="_blank">基本文法</a>を見てみましょう。
+      <p>なんとなく「こんな感じなんだ」程度に理解できたらOKです。</p>
+    </div>
+
+    <h3>条件分岐、ループ、四則演算、functionを理解する</h3>
+    <div>
+      <p>if(条件分岐)、for(ループ)、+-*/%(四則演算)、関数(function)の使い方について学び実践しましょう。</p>
+    </div>
+
+    <h3>配列とオブジェクト</h3>
+    <div>
+      <p>配列(array)、オブジェクト(Object)について調べてみましょう。</p>
+    </div>
+
+    <h3>DOMアクセス</h3>
+    <div>
+      <p>HTMLで記載したDOMにアクセスする方法について試してみましょう。</p>
+    </div>
+
+    <h3>イベントの伝播</h3>
+    <div>
+      <p>子の要素から親要素に伝播するイベントについて理解しましょう。(consoleで確認してみよう。)</p>
+      <div id="parent" onclick="parentOnclick();">
+        <div id="children">
+          <button type="button" id="child1" onclick="_button1Onclick();">button1</button>
+          <button type="button" id="child2" onclick="_button2Onclick(arguments[0]);">button2</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function _button1Onclick() {
+        console.log('button1がクリックされました。クリックイベントはparentまで伝播します。')
+      }
+
+      function _button2Onclick(e) {
+        e.stopPropagation();
+        console.log('button2がクリックされました。e.stopPropagation()を実行したため、伝播しません。')
+      }
+
+      function parentOnclick() {
+        console.log('parentがクリックされました。')
+      }
+
+    </script>
+  </body>
+</html>
