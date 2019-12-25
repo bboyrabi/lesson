@@ -79,14 +79,6 @@
       <div id="multAnswer" class="">?</div>
     </div>
 
-    <!-- for -->
-    <h3>for文</h3>
-    <div class="layout horizontal">
-      <div>['a', 'b', 'c']配列からfor文を使って'b'のindex番号を返却する関数を作成してください。</div>
-      <div class="margin-box">index = </div>
-      <div id="forIndex">?</div>
-    </div>
-
     <!-- if -->
     <h3>if文</h3>
     <div class="layout horizontal">
@@ -94,6 +86,14 @@
       <input id="if1" type="text" name="" value="10">
       <div class="margin-box">=</div>
       <div id="ifAnswer" class="">?</div>
+    </div>
+
+    <!-- for -->
+    <h3>for文</h3>
+    <div class="layout horizontal">
+      <div>['a', 'b', 'c']配列からfor文を使って'b'のindex番号を返却する関数を作成してください。</div>
+      <div class="margin-box">index = </div>
+      <div id="forIndex">?</div>
     </div>
 
     <!-- switch -->
@@ -137,15 +137,15 @@
         );
         document.getElementById('multAnswer').innerText = multResult;
 
-        // for
-        const forIndex = getForIndex(['a', 'b', 'c']);
-        document.getElementById('forIndex').innerText = forIndex;
-
         // if
         const ifResult = ifDemo(
           document.getElementById('if1').value
         );
         document.getElementById('ifAnswer').innerText = ifResult;
+
+        // for
+        const forIndex = getForIndex(['a', 'b', 'c']);
+        document.getElementById('forIndex').innerText = forIndex;
 
         // switch
         const switchResult = switchDemo(
@@ -184,19 +184,43 @@
         // TODO: ここを作成してください。
       }
 
-      function getForIndex(array) {
-        console.log(array);
-        // TODO: ここを作成してください。
-      }
-
       function ifDemo(x) {
         console.log({x});
         // TODO: ここを作成してください。
+        if(isNaN(x))
+          return '文字列が入力されています。';
+        x = x * 1;
+        if(x === 0)
+          return 'ゼロ';
+        return (x % 2 === 0) ? '偶数' : '奇数';
+      }
+
+      function getForIndex(array) {
+        console.log(array);
+        // TODO: ここを作成してください。
+        // for (let i = 0; i < array.length; i++) {
+        //   if(array[i] === 'b')
+        //     return i;
+        // }
       }
 
       function switchDemo(str) {
         console.log({str});
         // TODO: 新しいfunctionを作成してここで呼び出してください。
+        return switchFunction(str);
+      }
+
+      function switchFunction(str) {
+        switch (str) {
+          case 'dog':
+            return '犬';
+            break;
+          case 'cat':
+            return '猫';
+            break;
+          default:
+            return 'その他';
+        }
       }
     </script>
   </body>

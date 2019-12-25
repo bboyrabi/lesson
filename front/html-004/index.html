@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>課題４</title>
+    <style media="screen">
+      section {
+        margin: 24px 12px;
+      }
+
+      .box-wrapper {
+        display: inline-block;
+        background-color: blue;
+        padding: 33.333px 0;
+        margin: 8px 4px;
+        width: 200px;
+        height: 400px;
+      }
+
+      .inside-box {
+        background-color: red;
+        margin: 33.333px auto;
+        width: 150px;
+        height: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <section id="boxesContainer">
+      <div class="box-wrapper">
+        <div class="inside-box"></div>
+        <div class="inside-box"></div>
+      </div>
+    </section>
+
+    <button type="button" name="button" onclick="_addBox();">増やす</button>
+    <button type="button" name="button" onclick="_popBox();">減らす</button>
+    
+    <script type="text/javascript">
+      function _addBox() {
+        const boxes = document.getElementById("boxesContainer");
+        // id="boxesContainer" の要素の先頭にある子要素をコピーする
+        const clone = boxes.firstElementChild.cloneNode(true);
+        // id="boxesContainer" の要素の最後尾に複製した要素を追加
+        boxes.appendChild(clone);
+      }
+
+      function _popBox() {
+        const boxes = document.getElementById("boxesContainer");
+        if(boxes.children.length <= 1) {
+          alert('残りひとつなので削除できません。');
+          return;
+        }
+        boxes.removeChild(boxes.children[boxes.children.length - 1]);
+      }
+    </script>
+  </body>
+</html>
