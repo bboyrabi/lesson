@@ -2,40 +2,79 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <!-- Media queryに必要 -->
+    <meta name="viewport" content="width=device-width">
     <title>課題４</title>
     <style media="screen">
       section {
-        margin: 24px 12px;
+        padding: 24px 12px;
+      }
+
+      section > .box-wrapper {
+        margin: 8px 4px;
+      }
+
+      button {
+        width: 200px;
+        height: 50px;
+        background-color: aquamarine;
       }
 
       .box-wrapper {
         display: inline-block;
         background-color: blue;
-        padding: 33.333px 0;
-        margin: 8px 4px;
         width: 200px;
         height: 400px;
       }
 
       .inside-box {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-align-items: center; /* 縦方向中央揃え（Safari用） */
+        align-items: center; /* 縦方向中央揃え */
+        -webkit-justify-content: center; /* 横方向中央揃え（Safari用） */
+        justify-content: center; /* 横方向中央揃え */
+
         background-color: red;
         margin: 33.333px auto;
         width: 150px;
         height: 150px;
       }
+
+      .inside-box > span {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      @media (max-width: 460px) {
+        .box-wrapper {
+          width: 100%;
+          height: 400px;
+        }
+
+        .inside-box {
+          width: 80%;
+          height: 150px;
+        }
+      }
     </style>
   </head>
   <body>
+    <h1>あいうえお</h1>
     <section id="boxesContainer">
       <div class="box-wrapper">
-        <div class="inside-box"></div>
-        <div class="inside-box"></div>
+        <div class="inside-box">
+          <span>A</span>
+        </div>
+        <div class="inside-box">
+          <span>B</span>
+        </div>
       </div>
     </section>
 
     <button type="button" name="button" onclick="_addBox();">増やす</button>
     <button type="button" name="button" onclick="_popBox();">減らす</button>
-    
+
     <script type="text/javascript">
       function _addBox() {
         const boxes = document.getElementById("boxesContainer");
