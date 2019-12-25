@@ -46,15 +46,17 @@
         font-weight: bold;
       }
 
+      .inside-box > img {
+        width: 100%;
+      }
+
       @media (max-width: 460px) {
         .box-wrapper {
           width: 100%;
-          height: 400px;
         }
 
         .inside-box {
           width: 80%;
-          height: 150px;
         }
       }
     </style>
@@ -62,14 +64,16 @@
   <body>
     <h1>あいうえお</h1>
     <section id="boxesContainer">
-      <div class="box-wrapper">
-        <div class="inside-box">
-          <span>A</span>
+      <a href="../html-003/index.html">
+        <div class="box-wrapper">
+          <div class="inside-box">
+            <img src="./accet/images/cats.jpg" alt="猫の画像">
+          </div>
+          <div class="inside-box">
+            <span>B</span>
+          </div>
         </div>
-        <div class="inside-box">
-          <span>B</span>
-        </div>
-      </div>
+      </a>
     </section>
 
     <button type="button" name="button" onclick="_addBox();">増やす</button>
