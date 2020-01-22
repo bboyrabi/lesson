@@ -293,7 +293,7 @@ for文の書き方
     console.log(i); // index番号1でbreakするため、0以降はコンソール表示されません。
   }
 ```
-## functionについて
+## function
 ある処理をひとまとめにした関数`function`を作成することができます。
 
 同じ処理が繰り返し行われる場合などに関数を定義しておくと、プログラミングの可読性の向上や、修正などのメンテナンスが容易になります。
@@ -325,9 +325,11 @@ functionの作成と実行
     console.log('Hello ' + name);
   }
 ```
+
+#### 引数と返り値
 引数とは関数内で使用するパラメータです。引数は複数使用可能で、`,`で区切ります。
 
-関数で処理した結果を返却する必要がある場合は`return 返却値;`を実行します。返却値は引数と違って複数返すことができません。
+関数で処理した結果を返却する必要がある場合は`return 返却値;`を実行します。返却値は引数と違って複数返すことができません。返却値がない場合は`return`のみで関数の処理を終了します。関数の最終行の返り値なし`return`は省略することができます。
 
 例題：
 ２つの引数を乗算した結果を返却する関数を作成し、実行した結果をコンソールに表示する
@@ -338,4 +340,20 @@ functionの作成と実行
 
   let result = mult(4, 8); // mult関数を実行し、得られた結果をresultに設定します
   console.log(result); // 32
+```
+
+#### デフォルトパラメータ
+引数の値にデフォルトの値を設定しておくことが来ます。
+```
+  const notSetDefaultPrams = function(param) {
+    console.log(param);
+  };
+  console.log(notSetDefaultPrams());              // 未定義である'undefined'が表示されます。
+  console.log(notSetDefaultPrams('set param'));   // 'set param'が表示されます。
+
+  const enabledDefaultPrams = function(param = 'default') {
+    console.log(param);
+  };
+  console.log(enabledDefaultPrams());             // 'default'が表示されます。
+  console.log(enabledDefaultPrams('set param'));  // 'set param'が表示されます。
 ```
