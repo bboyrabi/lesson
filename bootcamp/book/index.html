@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang=ja dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Book検索サービス</title>
+    <!-- bootstrap css を読み込む. -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- 独自CSSを作成する. -->
+    <style media="screen">
+      #headerImageContainer {
+        text-align: center;
+        padding: 10% 0 24px 0;
+      }
+      #headerImageContainer img {
+        width: 70%;
+        max-height: 300px;
+        object-fit: contain;
+      }
+      form {
+        max-width: 100%;
+        width: 500px;
+        display: block;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="headerImageContainer">
+      <img src="./images/book.jpg" alt="本の画像">
+    </div>
+    <form action="./results.html" onsubmit="_onsubmit(arguments[0]);">
+      <div class="form-group">
+        <label for="searchBooks">本を検索する</label>
+        <input type="text" id="searchBooks" class="form-control" name="query">
+      </div>
+      <button type="submit" id="submitButton" class="btn btn-primary">検索</button>
+    </form>
+
+    <script type="text/javascript">
+
+      /**
+       * formタグのsubmit(検索ボタン押下 / Enterボタン押下)が発生した際に、実行する関数.
+       * #searchBooks に何も入力されていない場合は、アラートを表示して何もしない.
+       * 入力されている場合はsubmitを実行する.
+       */
+      function _onsubmit(event) {
+        const query = document.getElementById('searchBooks').value;
+        if(!query) {
+          window.alert('本のタイトルを入力してください。')
+          event.preventDefault(); // formタグのSubmitを止める
+          return;
+        }
+      }
+    </script>
+  </body>
+</html>

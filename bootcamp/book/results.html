@@ -1,0 +1,144 @@
+<html lang=ja dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>検索結果 - Book検索サービス</title>
+    <!-- Bootstrapを読み込む -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- 独自CSSを作成する. -->
+    <style media="screen">
+      #resultListContainer {
+        padding: 24px;
+      }
+      #cardRow > a {
+        text-decoration: none;
+        color: #212121;
+      }
+
+      #cardRow .col {
+        height: 400px;
+      }
+      .card img {
+        object-fit: contain;
+        height: 200px;
+      }
+      .card .card-text {
+        height: 100px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <!-- JSやCSSが読み込まれたタイミングで発生するonloadイベントを取得して関数を呼び出す. -->
+  <body onload="_onload();">
+
+    <div id="resultListContainer">
+      <div id="cardRow" class="row row-cols-1 row-cols-md-3">
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+      /**
+       * bodyタグのonloadイベントで呼び出される.
+       */
+      function _onload() {
+        // URLのパラメータからqueryを取り出して、searchBooksBy関数に渡す.
+        const query = getParamater('query');
+        searchBooksBy(query);
+      }
+
+      /**
+       * URLのパラメータから引数で指定されたパラメータ名の値を返却する.
+       * @param name {string}
+       * @return {string}
+       */
+      function getParamater(name) {
+        if(!name)
+          return;
+        const url = new URL(location.href);
+        return url.searchParams.get(name);
+      }
+
+      /**
+       * fetchで受け取った結果を画面に表示する.
+       * 結果はBookクラスでインスタンス化され、BookのappendInnerHtml()を使って表示する.
+       * @param items {object}
+       */
+      function _itemsChanged(items) {
+        // 書き込む先の親要素を取得する.
+        const element = document.getElementById('cardRow');
+        for (let i = 0; i < items.length; i++) {
+          // Bookの詳細を元に親要素にDomを追加する.
+          new Book(items[i]).appendInnerHtml(element);
+        }
+      }
+
+      /**
+       * リクエスト結果(Book)のclass(設計図).
+       */
+      class Book {
+        /**
+         * インスタンス化するときに最初に一度だけ呼び出される関数で、
+         * fetchした結果を元にBookをインスタンス化する.
+         * @param item {object}
+         */
+        constructor(item) {
+          this.title = item.volumeInfo.title;
+          this.subtitle = item.volumeInfo.subtitle;
+          this.description = item.volumeInfo.description;
+          this.smallThumbnail = item.volumeInfo.imageLinks.smallThumbnail;
+          this.thumbnail = item.volumeInfo.imageLinks.thumbnail;
+          this.id = item.id;
+        }
+
+        /**
+         * このBookを元に作成したCardのHTMLを返却する.
+         */
+        get cardHtml() {
+          return `
+            <a href="./detail.html?id=${encodeURI(this.id)}">
+              <div class="col mb-4">
+                <div class="card h-100">
+                  <img src="${this.smallThumbnail}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">${this.title}</h5>
+                    <p class="card-text">${this.description ? this.description : '詳細はありません'}</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          `;
+        }
+
+        /**
+         * 引数のエレメントのHTMLにこのBookで作成したCardのHTMLを追加する.
+         * @param element {element}
+         */
+        appendInnerHtml(element) {
+          if(!element) {
+            console.warn('elementが空です.');
+            return;
+          }
+          element.innerHTML += this.cardHtml;
+        }
+      }
+
+      /**
+       * 引数のクエリで本のリストを検索する.
+       *
+       * @param query {string}
+       */
+      function searchBooksBy(query) {
+        if(!query) {
+          return [];  // queryがないため検索を行わない.
+        }
+        // // https://developers.google.com/books/docs/v1/getting_started?hl=ja#rest-in-the-books-api
+        const by = 'relevance';
+        const fields = 'fields=items(id,volumeInfo/*,accessInfo(embeddable,country,viewability))';
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=${by}&${fields}&download=epub&maxResults=20`)
+          .then(res => res.json())
+          .then(data => _itemsChanged(data.items))
+          .catch(() => console.error(`Search books fetch error. query is ${query}`));
+      }
+    </script>
+  </body>
+</html>

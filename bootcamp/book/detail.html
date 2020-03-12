@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang=ja dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>本の詳細 - Book検索サービス</title>
+    <!-- bootstrap css を読み込む. -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- 独自CSSを作成する. -->
+    <style media="screen">
+      #detailContainer {
+        padding: 32px;
+        margin: auto;
+        max-width: 780px;
+      }
+      .card {
+        border: none;
+      }
+      .card img {
+        max-height: 200px;
+        object-fit: contain;
+      }
+      .buy-link {
+        display: block;
+        text-align: right;
+      }
+      .description {
+        margin: 24px 0;
+        padding: 24px 0;
+        border-top: solid #eeeeee;
+        border-bottom: solid #eeeeee;
+      }
+    </style>
+  </head>
+  <body onload="_onload();">
+    <div id="detailContainer"></div>
+    <script type="text/javascript">
+      /**
+       * bodyタグのonloadイベントで呼び出される.
+       */
+      function _onload() {
+        // URLのパラメータからidを取り出して、_idChangedを実行する.
+        const id = getParamater('id');
+        _idChanged(id);
+      }
+
+      /**
+       * 引数に渡されたidをsearchBookBy関数を呼び出す.
+       * idはURLで取得するのでdecodeURIを使ってデコードする.
+       * @param id {string}
+       */
+      function _idChanged(id) {
+        if(!id) {
+          console.warn('idが空です');
+          return;
+        }
+        // decodeURIを実行してデコードする
+        id = decodeURI(id);
+        searchBookBy(id);
+      }
+
+      /**
+       * fetchで取得したitemでBookクラスをインスタンス化し、BookのappendInnerHtml()を使って表示する.
+       */
+      function _itemChanged(item) {
+        // 書き込む先の親要素を取得する.
+        const element = document.getElementById('detailContainer');
+        new Book(item).appendInnerHtml(element);
+      }
+
+      /**
+       * リクエスト結果(Book)のclass(設計図).
+       */
+      class Book {
+        constructor(item) {
+          const volumeInfo = item.volumeInfo;
+          this.title = volumeInfo.title;
+          this.subtitle = volumeInfo.subtitle;
+          this.publisher = volumeInfo.publisher;
+          this.publishedDate = volumeInfo.publishedDate;
+          this.description = volumeInfo.description;
+          this.pageCount = volumeInfo.pageCount;
+          this.smallThumbnail = volumeInfo.imageLinks.smallThumbnail;
+          this.previewLink = volumeInfo.previewLink;
+          this.authors = volumeInfo.authors;
+          const saleInfo = item.saleInfo;
+          this.buyLink = saleInfo.buyLink;
+        }
+
+        /**
+         * このBookを元に作成したCardのHTMLを返却する.
+         */
+        get cardHtml() {
+          const authors = this.authors.join(', ');
+          return `
+          <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="${this.smallThumbnail}" class="card-img" alt="${this.title}の画像">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">${this.title}</h5>
+                  ${this.subtitle ? `<h6>${this.subtitle}</h6>` : ''}
+                  <p class="card-text">${this.pageCount}ページ</p>
+                  <p class="card-text">出版社: ${this.publisher}</p>
+                  <p class="card-text">著者: ${authors}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          `;
+        }
+
+        /**
+         * このBookを元に作成したBuyLinkのHTMLを返却する.
+         */
+        get buyLinkHtml() {
+          return `
+            <a class="buy-link" href="${this.buyLink}" target="_blank">
+              <button type="button" class="btn btn-primary">購入ページ</button>
+            </a>
+          `;
+        }
+
+        /**
+         * このBookを元に作成したDescriptionのHTMLを返却する.
+         */
+        get descriptionHtml() {
+          return `
+            <div class="description"><h6>詳細</h5>${this.description}</div>
+          `;
+        }
+
+        /**
+         * 引数のエレメントのHTMLにこのBookで作成したHTMLを追加する.
+         * @param element {element}
+         */
+        appendInnerHtml(element) {
+          if(!element) {
+            console.warn('elementが空です.');
+            return;
+          }
+          element.innerHTML = this.cardHtml;
+          element.innerHTML += this.buyLinkHtml;
+          element.innerHTML += this.descriptionHtml;
+        }
+      }
+
+      /**
+       * URLのパラメータから引数で指定されたパラメータ名の値を返却する.
+       * @param name {string}
+       * @return {string}
+       */
+      function getParamater(name) {
+        if(!name)
+          return;
+        const url = new URL(location.href);
+        return url.searchParams.get(name);
+      }
+
+      /**
+       * 引数のクエリで本の詳細を検索する.
+       *
+       * @param id {string}
+       */
+      function searchBookBy(id) {
+        if(!id) {
+          return {};  // idがないため検索を行わない.
+        }
+        // https://developers.google.com/books/docs/v1/getting_started?hl=ja#rest-in-the-books-api
+        // https://developers.google.com/books/docs/v1/reference/volumes?hl=ja
+        fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
+          .then(res => res.json())
+          .then(data => _itemChanged(data))
+          .catch(() => console.error(`Search book fetch error. id is ${id}`));
+      }
+    </script>
+  </body>
+</html>
