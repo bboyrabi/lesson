@@ -246,28 +246,24 @@
 ### 必要なページと機能
   1. トップページ
 
-    * トップページの例
-
-    ![トップページ画像](https://github.com/bboyrabi/lesson/blob/master/bootcamp/book/images/book_top_page.jpg?raw=true)
-
     * 検索formがあり、検索ボタンが押されたら`検索結果ページ`に遷移する
+
+![トップページ画像](https://github.com/bboyrabi/lesson/blob/master/bootcamp/book/images/book_top_page.jpg?raw=true)
+
   2. 検索結果ページ
-
-    * 検索結果ページの例
-
-    ![検索結果ページ画像](https://github.com/bboyrabi/lesson/blob/master/bootcamp/book/images/book_results_page.jpg?raw=true)
 
     * URLのパラメータから`検索クエリ`を読み込む
     * 検索クエリで`fetch検索`し、得た結果を`画面に表示する`
     * 表示された検索結果をクリックすると`詳細ページ`に遷移する
-  3. 詳細ページ
-  
-    * 詳細ページの例
 
-    ![詳細ページ画像](https://github.com/bboyrabi/lesson/blob/master/bootcamp/book/images/book_detail_page.jpg?raw=true)
+![検索結果ページ画像](https://github.com/bboyrabi/lesson/blob/master/bootcamp/book/images/book_results_page.jpg?raw=true)
+
+  3. 詳細ページ
 
     * URLのパラメータから`id`を読み込む
     * idで`fetch検索`し、得た結果を`画面に表示する`
+
+![詳細ページ画像](https://github.com/bboyrabi/lesson/blob/master/bootcamp/book/images/book_detail_page.jpg?raw=true)
 
   * URLのパラメータを取得する関数
   ```
