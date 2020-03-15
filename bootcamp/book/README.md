@@ -238,6 +238,7 @@
         .catch(() => console.error(`Search book fetch error. id is ${id}`));
     }
   ```
+  * レスポンスについて <https://developers.google.com/books/docs/v1/reference/volumes?hl=ja>
 
 ## DAY 2
 
