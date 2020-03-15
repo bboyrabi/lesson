@@ -127,6 +127,8 @@
   * まずはpaiza(<https://paiza.io/ja/projects/new?language=javascript>)でJSを試してみよう
   * 基礎１(<https://github.com/bboyrabi/lesson/tree/master/front/html-005>)
   * 基礎２(<https://github.com/bboyrabi/lesson/tree/master/front/html-007>)
+  * 関数はミキサー、引数は果物、戻り値はミックスジュース
+  * 変数の値渡し、関数への値渡しをテストします
   * htmlと一緒に使ってみる
   ```
   ...
@@ -217,7 +219,7 @@
       fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=${by}&${fields}&download=epub&maxResults=20`)
         .then(res => res.json())
         .then(data => _itemsChanged(data.items)) // _itemsChanged を作る必要がある
-        .catch(() => console.error(`Search books fetch error. query is ${query}`));
+        .catch((error) => console.error(`Search books fetch error. query is ${query}`, error));
     }
     ```
   * 上記の検索結果にある本の`id`を利用して詳細を検索する
@@ -235,7 +237,7 @@
       fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
         .then(res => res.json())
         .then(data => _itemChanged(data)) // _itemChanged を作る必要がある
-        .catch(() => console.error(`Search book fetch error. id is ${id}`));
+        .catch((error) => console.error(`Search book fetch error. id is ${id}`), error);
     }
   ```
   * レスポンスについて <https://developers.google.com/books/docs/v1/reference/volumes?hl=ja>
