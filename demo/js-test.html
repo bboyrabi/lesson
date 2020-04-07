@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JS demo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  <body onload="_onLoad();">
+    <h1 id="greeting">こんにちは</h1>
+    <button type="button"
+            class="btn btn-primary"
+            onclick="_onClickButton();">Primary</button>
+    <script type="text/javascript">
+      function _onClickButton() {
+        searchBooksBy('ドラえもん');
+      }
+
+      /**
+       * 引数のクエリで本のリストを検索する.
+       *
+       * @param query {string}
+       */
+      function searchBooksBy(query) {
+        if(!query) {
+          return [];  // queryがないため検索を行わない.
+        }
+        // https://developers.google.com/books/docs/v1/getting_started?hl=ja#rest-in-the-books-api
+        const by = 'relevance';
+        const fields = 'fields=items(id,volumeInfo/*,accessInfo(embeddable,country,viewability))';
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=${by}&${fields}&download=epub&maxResults=20`)
+          .then(res => res.json())
+          .then(data => _itemsChanged(data.items)) // _itemsChanged を作る必要がある
+          .catch(() => console.error(`Search books fetch error. query is ${query}`));
+      }
+
+      function _itemsChanged(items) {
+        console.log(items);
+      }
+
+
+      function _onLoad() {
+        console.log('_onLoad()');
+      }
+
+    </script>
+  </body>
+</html>

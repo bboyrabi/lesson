@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>てすと</title>
+    <style media="screen">
+      h1 {
+        color: red;
+        font-size: 95px;
+      }
+      .text-green {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>こんにちは</h1>
+    <div class="text-green" style="color: blue;">
+      こんばんは
+    </div>
+    <span class="text-green">あいうえお</span><span>かきくけこ</span>
+    <p>改行する文字列 <br> brで改行します </p>
+    <a href="https://www.pexels.com/ja-jp/" target="_blank">テストのリンク</a>
+    <!-- <img src="./images/boy-child-clouds-kid-346796.jpg" alt="少年の画像"> -->
+
+    <form action="../front/html-001/index.html" method="post">
+      <p><label>名前：<input type="text" name="name" size="40"></label></p>
+      <p><label>血液型：
+      <select name="blood">
+        <option value="A">A型</option>
+        <option value="B">B型</option>
+        <option value="O">O型</option>
+        <option value="AB">AB型</option>
+      </select>
+      </label></p>
+      <fieldset>
+        <legend>性別</legend>
+        <p><label><input type="radio" name="sex" value="male">男</label></p>
+        <p><label><input type="radio" name="sex" value="female">女</label></p>
+        </fieldset>
+      <fieldset>
+        <legend>趣味</legend>
+        <p><label><input type="checkbox" name="hobby" value="sports">スポーツ</label></p>
+        <p><label><input type="checkbox" name="hobby" value="reading">読書</label></p>
+        <p><label><input type="checkbox" name="hobby" value="music">音楽</label></p>
+        <p><label><input type="checkbox" name="hobby" value="travel">旅行</label></p>
+      </fieldset>
+      <p><label>コメント：<br><textarea name="comments" rows="2" cols="40"></textarea></label></p>
+      <p><input type="submit" value="送信"><input type="reset" value="リセット"></p>
+    </form>
+  </body>
+</html>
