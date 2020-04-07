@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>本の詳細 - 本の検索アプリ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <style media="screen">
+      body {
+        background-color: #ffc107;
+      }
+      section {
+        padding: 32px;
+      }
+      #detailContainer {
+        max-width: 100%;
+        width: 780px;
+        margin: auto;
+        background-color: #fff;
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+                    0  6px 30px 5px rgba(0, 0, 0, 0.12),
+                    0  8px 10px -5px rgba(0, 0, 0, 0.4);
+      }
+      .buy-link {
+        display: block;
+        text-align: right;
+        padding: 1.25rem;
+      }
+      .description {
+        padding: 1.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+
+      <!-- 検索ボックス -->
+      <div class="row justify-content-center animated bounceInUp">
+        <form class="form-inline" action="./results.html">
+          <div class="form-group mx-sm-3 mb-2 col-sm-8">
+            <label for="query" class="sr-only">検索キーワード</label>
+            <input type="text" name="query" id="query" class="form-control" placeholder="本の名前など">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">検索</button>
+        </form>
+      </div>
+
+      <div id="detailContainer">
+
+      </div>
+    </section>
+    <script type="text/javascript">
+
+      /**
+       * リクエスト結果(Book)のclass(設計図).
+       */
+      class Book {
+        constructor(item) {
+          const volumeInfo = item.volumeInfo;
+          this.title = volumeInfo.title;
+          this.subtitle = volumeInfo.subtitle;
+          this.publisher = volumeInfo.publisher;
+          this.publishedDate = volumeInfo.publishedDate;
+          this.description = volumeInfo.description;
+          this.pageCount = volumeInfo.pageCount;
+          this.smallThumbnail = volumeInfo.imageLinks.smallThumbnail;
+          this.previewLink = volumeInfo.previewLink;
+          this.authors = volumeInfo.authors;
+          const saleInfo = item.saleInfo;
+          this.buyLink = saleInfo.buyLink;
+        }
+
+        /**
+         * このBookを元に作成したCardのHTMLを返却する.
+         */
+        get cardHtml() {
+          const authors = this.authors ? this.authors.join(', ') : '';
+          return `
+          <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="${this.smallThumbnail}" class="card-img" alt="${this.title}の画像">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h1 class="card-title">${this.title}</h1>
+                  ${this.subtitle ? `<h3>${this.subtitle}</h3>` : ''}
+                  <p class="card-text">${this.pageCount}ページ</p>
+                  <p class="card-text">出版社: ${this.publisher}</p>
+                  <p class="card-text">著者: ${authors}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          `;
+        }
+
+        /**
+         * このBookを元に作成したBuyLinkのHTMLを返却する.
+         */
+        get buyLinkHtml() {
+          return `
+            <a class="buy-link" href="${this.buyLink}" target="_blank">
+              <button type="button" class="btn btn-danger btn-lg">購入ページ</button>
+            </a>
+          `;
+        }
+
+        /**
+         * このBookを元に作成したDescriptionのHTMLを返却する.
+         */
+        get descriptionHtml() {
+          return `
+            <div class="description"><h4>詳細</h5>${this.description}</div>
+          `;
+        }
+
+        /**
+         * 引数のエレメントのHTMLにこのBookで作成したHTMLを追加する.
+         * @param element {element}
+         */
+        appendInnerHtml(element) {
+          if(!element) {
+            console.warn('elementが空です.');
+            return;
+          }
+          element.innerHTML = this.cardHtml;
+          element.innerHTML += this.buyLinkHtml;
+          element.innerHTML += this.descriptionHtml;
+        }
+      }
+
+      const id = getParamater('id');
+      searchBookBy(id);
+
+      function _itemChanged(data) {
+        console.log(data);
+        const element =
+          document.getElementById('detailContainer');
+        new Book(data).appendInnerHtml(element);
+      }
+      /**
+       * URLのパラメータから引数で指定されたパラメータ名の値を返却する.
+       * @param name {string}
+       * @return {string}
+       */
+      function getParamater(name) {
+        if(!name)
+          return;
+        const url = new URL(location.href);
+        return url.searchParams.get(name);
+      }
+
+      /**
+       * 引数のクエリで本の詳細を検索する.
+       *
+       * @param id {string}
+       */
+      function searchBookBy(id) {
+        if(!id) {
+          return {};  // idがないため検索を行わない.
+        }
+        // https://developers.google.com/books/docs/v1/getting_started?hl=ja#rest-in-the-books-api
+        // https://developers.google.com/books/docs/v1/reference/volumes?hl=ja
+        fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
+          .then(res => res.json())
+          .then(data => _itemChanged(data))
+          .catch(error => console.error(`Search book fetch error. id is ${id}`, error));
+      }
+    </script>
+  </body>
+</html>

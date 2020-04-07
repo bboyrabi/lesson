@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>本の検索アプリ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <style media="screen">
+      body {
+        background-color: #ffc107;
+      }
+      #imageContainer {
+        text-align: center;
+        padding: 110px 0 44px 0;
+      }
+      #imageContainer > img {
+        max-width: 100%;
+        width: 500px;
+        box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.4);
+      }
+      .alert-success {
+        width: 350px;
+        margin: 24px auto;
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+                    0 1px 18px 0 rgba(0, 0, 0, 0.12),
+                    0 3px 5px -1px rgba(0, 0, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="imageContainer" class="animated bounceInDown">
+      <img src="https://offerbox.jp/ofbstudent/wp/wp-content/uploads/2016/01/1024-cc-library010005268.jpg" alt="Book image">
+    </div>
+    <div class="row justify-content-center animated bounceInUp">
+      <form class="form-inline" action="./results.html">
+        <div class="form-group mx-sm-3 mb-2 col-sm-8">
+          <label for="query" class="sr-only">検索キーワード</label>
+          <input type="text" name="query" id="query" class="form-control" placeholder="本の名前など">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">検索</button>
+      </form>
+    </div>
+    <div class="alert alert-success animated lightSpeedIn delay-1s" role="alert">
+      フロントエンドBootcampで作りました!
+    </div>
+  </body>
+</html>

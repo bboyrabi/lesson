@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>検索結果 - 本の検索アプリ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <style media="screen">
+      body {
+        background-color: #ffc107;
+      }
+      section {
+        padding: 32px;
+      }
+      #cardContainer a {
+        text-decoration: none;
+      }
+      #cardContainer img {
+        height: 250px;
+        object-fit: contain;
+      }
+      #cardContainer .card-title {
+        color: #212121;
+        font-weight: bold;
+        height: 70px;
+        overflow: hidden;
+      }
+      #cardContainer .card-text {
+        color: #424242;
+      }
+      #cardContainer .description {
+        height: 90px;
+        overflow: hidden;
+      }
+      .book-card {
+        margin: 8px;
+        max-width: 100%;
+        box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+                    0 1px 18px 0 rgba(0, 0, 0, 0.12),
+                    0 3px 5px -1px rgba(0, 0, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+
+      <!-- 検索ボックス -->
+      <div class="row justify-content-center animated bounceInUp">
+        <form class="form-inline" action="./results.html">
+          <div class="form-group mx-sm-3 mb-2 col-sm-8">
+            <label for="query" class="sr-only">検索キーワード</label>
+            <input type="text" name="query" id="query" class="form-control" placeholder="本の名前など">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">検索</button>
+        </form>
+      </div>
+
+      <div id="resultsContainer">
+        <div id="cardContainer" class="row justify-content-center row-cols-1 row-cols-md-3">
+          <!-- ここに検索結果の本を表示する -->
+        </div>
+      </div>
+
+    </section>
+    <script type="text/javascript">
+      //~~~.html?query=ドラえもん
+      const query = getParamater('query');
+      searchBooksBy(query); // 検索を開始
+
+      class Book {
+        constructor(item) {
+          this.id = item.id;
+          this.title = item.volumeInfo.title;
+          this.description = item.volumeInfo.description;
+          this.thumbnail = item.volumeInfo.imageLinks.smallThumbnail;
+          this.publisher = item.volumeInfo.publisher;
+        }
+
+        // 出版社を取得する
+        getPublisher() {
+          return this.publisher ? this.publisher : '';
+        }
+
+        // 本の詳細を取得する
+        getDescription() {
+          return this.description ? this.description : '詳細はありません';
+        }
+
+        // 詳細ページのリンクを取得する
+        getDetailLink() {
+          return `./detail.html?id=${this.id}`;
+        }
+
+        // CardのHTMLを取得する
+        retrieveCardHtml() {
+          return `
+            <div class="card mb-3 book-card">
+              <a href="${this.getDetailLink()}">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="${this.thumbnail}" class="card-img" alt="">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">${this.title}</h5>
+                      <p class="card-text description">${this.getDescription()}</p>
+                      <p class="card-text"><small class="text-muted">${this.getPublisher()}</small></p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `
+        }
+      }
+
+      /**
+       * 検索後の結果をパラメータに呼び出される.
+       * @param items {array}
+       */
+      function _itemsChanged(items) {
+        console.log({items});
+        renderHtmlBy(items); // Classを使わないパターン
+        // const element = document.getElementById('cardContainer');
+        // for(let i = 0; i < items.length; i++) {
+        //   // htmlタグ(element)に本のhtmlを作成し設定する
+        //   element.innerHTML += new Book(items[i]).retrieveCardHtml();
+        // }
+      }
+
+      //
+      function renderHtmlBy(items) {
+        const element = document.getElementById('cardContainer');
+        for(let i = 0; i < items.length; i++) {
+          const detailLink = `./detail.html?id=${items[i].id}`;
+          const thumbnail = items[i].volumeInfo.imageLinks.smallThumbnail;
+          const publisher = items[i].volumeInfo.publisher;
+          const title = items[i].volumeInfo.title;
+          const description = items[i].volumeInfo.description;
+          // htmlタグ(element)に本のhtmlを作成し設定する
+          element.innerHTML += `
+            <div class="card mb-3 book-card">
+              <a href="${detailLink}">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img src="${thumbnail}" class="card-img" alt="">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">${title}</h5>
+                      <p class="card-text description">${description}</p>
+                      <p class="card-text"><small class="text-muted">${publisher}</small></p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+        }
+      }
+
+      /**
+       * 引数のクエリで本のリストを検索する.
+       *
+       * @param query {string}
+       */
+      function searchBooksBy(query) {
+        if(!query) {
+          return [];  // queryがないため検索を行わない.
+        }
+        // https://developers.google.com/books/docs/v1/getting_started?hl=ja#rest-in-the-books-api
+        const by = 'relevance';
+        const fields = 'fields=items(id,volumeInfo/*,accessInfo(embeddable,country,viewability))';
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&orderBy=${by}&${fields}&download=epub&maxResults=20`)
+          .then(res => res.json())
+          .then(data => _itemsChanged(data.items)) // _itemsChanged を作る必要がある
+          .catch((error) => console.error(`Search books fetch error. query is ${query}`, error));
+      }
+
+      /**
+       * URLのパラメータから引数で指定されたパラメータ名の値を返却する.
+       *
+       * @param name {string}
+       * @return {string}
+       */
+      function getParamater(name) {
+        if(!name)
+          return '';
+        const url = new URL(location.href);
+        return url.searchParams.get(name);
+      }
+    </script>
+  </body>
+</html>
