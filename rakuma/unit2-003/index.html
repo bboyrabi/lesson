@@ -5,106 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        /* flex */
-        .flex-box {
-            display: flex; /* 要素の表示形式 */
+        body {
+            margin: 0; /* 余白 */
+        }
+        section {
+            margin: 8px;
         }
         .header {
             width: 100%; /* 横幅 */
             height: 300px; /* 縦幅 */
-            background-color: deepskyblue; /* 背景の色 */
+            background-color: dodgerblue; /* 背景 */
         }
-        /* 四角形 */
+        .flex-box {
+            display: flex; /* 要素の表示形式 */
+        }
+        .center-center {
+            align-items: center; /* display属性の値が'flex'または'grid'のときに使用できる縦方向の位置 */
+            justify-content: center; /* display属性の値が'flex'または'grid'のときに使用できる横方向の位置 */
+        }
         .square {
             width: 200px;
             height: 200px;
-            background-color: chartreuse;
-            margin: 8px; /* 外側の余白 */
+            background-color: greenyellow;
+            margin: 8px;
         }
-        /* 「円」の四角 */
-        .square.yen .square {
-            width: 100px;
-            height: 50px;
-            background-color: white;
-            border: solid 2px red; /* 枠線 */
-            border-left: none; /* 左側の枠線 */
-            margin: 0;
-        }
-        /* 「円」の右側の四角 */
-        .square.yen .square:last-child {
-            border-right: none; /* 右側の枠線 */
-        }
-        /* 「円」 */
-        .yen {
-            border-left: solid 2px red;
-            border-right: solid 2px red;
-            background-color: white;
-        }
-        /* 丸 */
         .circle {
             width: 200px;
             height: 200px;
+            background-color: hotpink;
             border-radius: 50%; /* 角の丸め */
-            background-color: cornflowerblue;
         }
-        /* 丸の中の丸 */
-        .circle.inner .circle {
+        .inner-circle {
             width: 100px;
             height: 100px;
-            background-color: darkred;
+            background-color: mediumslateblue;
         }
-        /* 縦横中央寄せ */
-        .center-center {
-            display: flex;
-            align-items: center; /* displayがflexかgridのときに使える縦方向の位置 */
-            justify-content: center; /* displayがflexかgridのときに使える横方向の位置 */
+        .yen.square,
+        .yen.square .square {
+            background-color: white;
+            border: solid 1px red; /* 枠線 */
+        }
+
+        .yen.square {
+            border-bottom: none; /* 枠線の下側 */
+        }
+        .yen.square .square {
+            width: 100px;
+            height: 50px;
+            margin: 0;
+            border-top: none; /* 枠線の上側 */
+            border-left: none; /* 枠線の左側 */
+        }
+        .yen.square .square:last-child {
+            border-right: none; /* 枠線の右側 */
         }
     </style>
 </head>
 <body>
     <div class="header flex-box center-center">
-        <h1>図形を表示する</h1>
+        <h1>CSSの応用編 - 図形を表示しよう</h1>
     </div>
-    <div>
-        <h2>四角の図形を表示します</h2>
-        <div class="square"></div>
-    </div>
-    <div>
-        <h2>丸の図形を表示します</h2>
-        <div class="circle"></div>
-    </div>
-    <div>
-        <h2>四角の図形を横に複数表示します</h2>
-        <div class="flex-box">
-            <div class="square"></div>
-            <div class="square"></div>
+
+    <section>
+        <div>
+            <h2>四角の図形を表示します</h2>
             <div class="square"></div>
         </div>
-    </div>
-    <div>
-        <h2>丸の図形の中に丸の図形を表示します</h2>
-        <div class="inner circle center-center">
+        <div>
+            <h2>丸の図形を表示します</h2>
             <div class="circle"></div>
         </div>
-    </div>
-    <div>
-        <h2>円という字を図形で表示します</h2>
-        <div class="square flex-box yen">
-            <div class="square"></div>
-            <div class="square"></div>
+        <div>
+            <h2>四角の図形を横並びに表示します</h2>
+            <div class="flex-box">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
         </div>
-    </div>
-    <div>
-        <h2>課題：日本の国旗を図形で表示してみよう</h2>
-        <!-- 課題をしてください -->
-    </div>
-    <div>
-        <h2>課題：日という字を図形で表示してみよう</h2>
-        <!-- 課題をしてください -->
-    </div>
-    <div>
-        <h2>課題：田という字を図形で表示してみよう</h2>
-        <!-- 課題をしてください -->
-    </div>
+        <div>
+            <h2>丸の図形の中に丸の図形を表示します</h2>
+            <div class="circle flex-box center-center">
+                <div class="inner-circle circle"></div>
+            </div>
+        </div>
+        <div>
+            <h2>「円」という字を図形で表示します</h2>
+            <div class="square yen flex-box">
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
+        </div>
+        <div>
+            <h2>課題１: 「日」という字を図形で表示してみましょう</h2>
+            <!-- コードを書いてください -->
+        </div>
+        <div>
+            <h2>課題２: 「田」という字を図形で表示してみましょう</h2>
+            <!-- コードを書いてください -->
+        </div>
+        <div>
+            <h2>課題３: 日本の国旗をを図形で表示してみましょう</h2>
+            <!-- コードを書いてください -->
+        </div>
+    </section>
 </body>
 </html>
