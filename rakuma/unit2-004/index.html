@@ -9,57 +9,61 @@
         画面を表示したときの倍率を指定する。
      -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>レスポンシブデザイン</title>
+    <title>Document</title>
     <style>
         body {
             margin: 0;
         }
         header {
+            background-color: gold;
+            color: #212121;
             width: 100%;
             height: 300px;
-            background-color: burlywood;
-            color: #212121;
         }
         .flex-box {
             display: flex;
         }
         .wrap {
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* displayがflexのときに、子要素の合計の横幅が100%を超えると折り返してくれる */
         }
         .center-center {
-            align-items: center;
             justify-content: center;
+            align-items: center;
         }
-        .top-container img {
-            width: 80%;
+        .lion-box img {
+            width: 70%;
         }
-        .top-container div {
-            width: 20%;
+        .lion-box div {
+            width: 30%;
             background-color: chartreuse;
         }
+        .lion-box p {
+            font-size: 34px;
+            font-weight: 800;
+        }
+        /* 最大500pxまでの端末のスクリーンに適用されるCSSを記述する */
         @media screen and (max-width: 500px) {
-            .top-container img {
+            header {
+                height: 200px;
+                font-size: 14px;
+            }
+            .lion-box img {
                 width: 100%;
             }
-
-            .top-container div {
+            .lion-box div {
                 width: 100%;
-            }
-
-            h1 {
-                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
     <header class="flex-box center-center">
-        <h1>レスポンシブデザインを学ぼう</h1>
+        <h1>レスポンシブデザインを学習する</h1>
     </header>
-    <div class="top-container flex-box wrap">
-        <img src="./lion-3576045_1920.jpg" alt="ライオンの画像">
+    <div class="lion-box flex-box wrap">
+        <img src="./lion-3576045_1920.jpg" alt="ライオンの画像です">
         <div class="flex-box center-center">
-            <h2>ライオン！がおーー</h2>
+            <p>ライオンだぞー！がおーー！</p>
         </div>
     </div>
 </body>
