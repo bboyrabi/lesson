@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptの基礎</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <!--
+        Highlight.js
+        https://github.com/highlightjs/highlight.js
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/agate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">JavaScript</h1>
+                <div class="subtitle">基礎１</div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title">プログラミングの基礎</h2>
+            <h3 class="subtitle">
+                プログラミングとはコンピュータに対する命令の集まりです
+            </h3>
+            <p>コンピュータへの命令には構文（書き方）があり、構文に存在しない命令をすればコンピュータはエラーを出して教えてくれます。</p>
+            <div>
+                <pre><span>命令とエラー</span><code class="lang-javascript">
+// コンソールに「おはよう」というログを表示せよ という命令
+console.log('おはよう');
+// 変数 x に 数値 0 を代入せよ という命令
+let x = 0;
+
+// エラーが発生
+あいうえお; // Uncaught ReferenceError: あいうえお is not defined
+// カッコの閉じ忘れ等でもエラーが発生します
+console.log('こんにちは); // Uncaught SyntaxError: Invalid or unexpected token
+                </code></pre>
+            </div>
+            <br>
+            <div>
+                エラーにはなりませんが、注意してほしい書き方があるので、心掛けてください。
+                <pre><span>終端文字に;(セミコロン)を使用する</span><code class="lang-javascript">
+// 良い例
+1234;
+
+// 悪い例
+1234
+                </code></pre>
+                <pre><span>インデントや改行を意識して読みやすくする</span><code class="lang-javascript">
+// 良い例
+const good = "良い例";
+console.log(good);
+good = good + " です";
+if(good) {
+    console.log('OK');
+}
+
+// 悪い例
+const dont="駄目な例";console.log(dont);dont=dont+" です";if(dont){console.log('Bad !!!!');};
+                </code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title">コンソールにログを表示する</h2>
+            <p>
+                コンソールにログを表示することで、プログラミングで計算した結果を確認したり、警告やエラーを確認することができます。
+            </p>
+            <div>
+                <pre><span>ログを表示する</span><code class="lang-javascript">console.log('Hello World!');</code></pre>
+                <pre><span>ログ（警告）を表示する</span><code class="lang-javascript">console.warn('警告です');</code></pre>
+                <pre><span>ログ（エラー）を表示する</span><code class="lang-javascript">console.error('警告です');</code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title">コメント文の書き方</h2>
+            <p>
+                コンピュータが読み込まないコメント文の書き方です。HTMLのコメント文とは書き方が異なります。
+            </p>
+            <div>
+                <pre><span>一行をコメントアウトする</span><code class="lang-javascript">
+// の後の行はコメント文となります
+                </code></pre>
+                <pre><span>複数行をコメントアウトする</span><code class="lang-javascript">
+/*
+    この中で記述されたものは、
+    コメント文となります
+*/
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-spaced">値と変数について</h2>
+            <h3 class="subtitle is-4">
+                値の種類
+            </h3>
+            <p><strong>値とは、文字列や数値などのプログラミングで扱うデータのことです。</strong>値には文字列、数値、真偽値、配列、オブジェクト、null、undefinedなどがあります。</p>
+            <div>
+                <pre><span>数値をコンソールに表示する</span><code class="lang-javascript">
+console.log(1234);
+                </code></pre>
+                <pre><span>文字列をコンソールに表示する(文字列は''(シングルクォーテーション)または""(ダブルクォーテーション)で囲みます)</span><code class="lang-javascript">
+console.log('文字列を表示する');
+                </code></pre>
+                <pre><span>数値を''(シングルクォーテーション)で囲むと文字列になります</span><code class="lang-javascript">
+console.log('1234');
+                </code></pre>
+                <pre><span>+(プラス)を使えば数値に１を足すことができます</span><code class="lang-javascript">
+console.log(1234 + 1); // 1235
+                </code></pre>
+                <pre><span>+(プラス)を使えば文字列を連結すことができます</span><code class="lang-javascript">
+console.log('文字列を' + '連結' + 'します'); // 文字列を連結します
+                </code></pre>
+                <pre><span>では次の場合、結果はどうなるでしょうか？</span><code class="lang-javascript">
+console.log('1234' + 1);
+                </code></pre>
+            </div>
+            <br>
+            <h3 class="subtitle is-4">
+                変数とは
+            </h3>
+            <p><strong>変数とは、値を格納する箱のようなものです。</strong>
+                値をそのまま使用することはほとんどないため、変数に値を代入してプログラミングを行います。<br>
+                変数は「宣言」して「定義（値を代入）」を行うことで使用することができ、宣言には<strong>let</strong>または<strong>const</strong>を使用します。<br>
+                変数には、どのような値でも代入することができます。
+            </p>
+            <br>
+            <article class="message is-info">
+                <div class="message-body">
+                    <strong>変数名の命名規則</strong><br>
+                    文字、アンダースコア (_)、あるいはドル記号 ($) から始まらなくてはなりません。続く文字には数字 (0-9) も使用できます。JavaScript は大文字・小文字を区別するため、使用できる文字には "A" から "Z" (大文字) に加えて "a" から "z" (小文字) も含まれます。<br>
+                </div>
+            </article>
+            <div>
+                <pre><span>変数をletを使って宣言</span><code class="lang-javascript">
+// animalという名前の変数を宣言する
+let animal;
+// animalは宣言されただけで、中身に何もない(未定義な)状態なので undefined が表示される
+console.log(animal); // undefined
+// animalに 犬 という文字列を代入する
+animal = '犬';
+// animalには 犬 が代入されているので 犬 が表示される
+console.log(animal); // 犬
+
+// 問題 コンソールには何が表示されるでしょう？
+animal = '猫';
+console.log(animal);
+                </code></pre>
+                <pre><span>変数をconstを使って宣言</span><code class="lang-javascript">
+// appleという名前の変数を宣言し定義する
+const apple = 'りんご';
+console.log(apple); // りんご
+                </code></pre>
+            </div>
+            <article class="message is-warning" style="margin-top: 12px;">
+                <div class="message-body">
+                    <strong>let</strong>を使用して宣言した変数は<strong>再代入が可能</strong>ですが、<strong>const</strong>を使用して宣言した変数は定数となり<strong>再代入が不可</strong>となります
+                </div>
+            </article>
+            <div>
+                <pre><span>constで宣言した変数には再代入できない</span><code class="lang-javascript">
+// oneという名前の変数を宣言し定義する
+const one = 1;
+console.log(one); // 1
+one = 2; // エラー
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-spaced">演算について</h2>
+            <h3 class="subtitle">
+                四則演算
+            </h3>
+            <p>
+                足し算、引き算、掛け算、割り算などの四則演算ができます。演算する際に使用する + - * / などの記号を演算子といいます。
+            </p>
+            <div>
+                <pre><span>四則演算</span><code class="lang-javascript">
+let num = 1;
+console.log(num + 10); // 11
+console.log(num - 10); // -9
+console.log(num * 10); // 10
+console.log(num / 1); // 1
+                </code></pre>
+            </div>
+            <br>
+            <h3 class="subtitle">
+                インクリメントとデクリメント
+            </h3>
+            <p>
+                変数が<strong>数値かつletで作成</strong>されたものであれば、演算子+または-を使用して「1を足す（インクリメント）」「1を引く（デクリメント）」をすることができます。
+            </p>
+            <div>
+                <pre><span>インクリメント</span><code class="lang-javascript">
+// インクリメントを使わない場合
+let num = 1;
+num = num + 1;
+console.log(num); // 2
+
+// インクリメント
+num = 1;
+num++; // ++ を二重に重ねることで 変数に + 1した数を代入できる
+console.log(num); // 2
+                </code></pre>
+                <pre><span>デクリメント</span><code class="lang-javascript">
+// デクリメントを使わない場合
+let num = 1;
+num = num - 1;
+console.log(num); // 0
+
+// インクリメント
+num = 1;
+num--; // -- を二重に重ねることで 変数に - 1した数を代入できる
+console.log(num); // 0
+                </code></pre>
+            </div>
+            <br>
+            <article class="message is-info">
+                <div class="message-body">
+                    インクリメント/デクリメントでは、記号を前につけるか後につけるかで実行内容が変わります。
+                    前につけた場合は、すぐに演算が行われますが、後につけた場合は、行の処理が終了した後に演算が行われます。
+                </div>
+            </article>
+            <div>
+                <pre><span>前と後の違い</span><code class="lang-javascript">
+let i = 0;
+console.log(i++); // 0 -> まだ0のまま
+console.log(i);   // 1 -> 行が終わったので1になる
+console.log(--i); // 0 -> すぐ実行されるので0になる
+                </code></pre>
+            </div>
+            <br>
+            <h3 class="subtitle">
+                代入記号
+            </h3>
+            <p><strong>変数 [四則演算子]= 数値;</strong>とすることで i = i + 5;のような処理を簡略化できます。</p>
+            <div>
+                <pre><span>前と後の違い</span><code class="lang-javascript">
+let i = 0;
+i += 1; // i = i + 1 と同義
+i *= 4; // i = i * 4 と同義
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-spaced">課題</h2>
+        </div>
+        <article class="message is-link">
+            <div class="message-header">
+                <p>課題１</p>
+            </div>
+            <div class="message-body">
+                変数 firstName にあなたの名前を代入して、コンソールに表示してください。
+            </div>
+        </article>
+        <article class="message is-link">
+            <div class="message-header">
+                <p>課題２</p>
+            </div>
+            <div class="message-body">
+                定数 age にあなたの年齢を代入して、コンソールに 「私の年齢はxx歳です」と表示してください。
+            </div>
+        </article>
+        <article class="message is-link">
+            <div class="message-header">
+                <p>課題３</p>
+            </div>
+            <div class="message-body">
+                次の計算結果をコンソールに表示してください。<br>
+                60 * 60 * 24 + 60 * 60 * 12
+            </div>
+        </article>
+        <article class="message is-link">
+            <div class="message-header">
+                <p>課題4</p>
+            </div>
+            <div class="message-body">
+                変数 i に 初期値として 0 を代入し、インクリメントしてください。
+            </div>
+        </article>
+    </section>
+</body>
+</html>
