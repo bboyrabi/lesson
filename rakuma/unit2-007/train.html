@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptの基礎その２</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <!--
+        Highlight.js
+        https://github.com/highlightjs/highlight.js
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/agate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <section class="hero is-info">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">JavaScript</h1>
+                <div class="subtitle">条件分岐について</div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">真偽値について</h2>
+            <h3 class="subtitle">
+                真偽値とはYesまたはNo、1または0、ある または ない
+            </h3>
+            <p>真偽値とは、真の場合は<strong>true</strong>、偽の場合は<strong>false</strong>が設定される値のことです。
+                条件によって処理をする内容が変わる分岐等で使用されます。<br>
+                簡単に言うと<strong>正しいか正しくないかのどちらかを表す値</strong>のことです。<br>
+            </p>
+            <br>
+            <p>
+                真偽値はBoolean(ブーリアン)型とも呼ばれ、前回やった文字列や数値と同じく値の型となります。<br>
+                <small>*値には文字列、数値、真偽値、配列、オブジェクト、null、undefinedなどがあります</small>
+            </p>
+            <div>
+                <pre><span>真偽値（Boolean）の使い方</span><code class="lang-javascript">
+// flag という変数を宣言し、真偽値 false を代入する
+let flag = false;
+console.log(flag); // false
+
+// 論理演算子 NOT(!) を使用すると反対の値が返される
+console.log(!flag); // true
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">論理演算子について</h2>
+            <h3 class="subtitle">
+                AND演算、OR演算、NOT演算
+            </h3>
+            <p>論理演算子を使うことで複数の条件を組み合わせた結果を真偽値として返すことができます。<br>
+                日本語にすると、ANDは「〜かつ」の意味で、ORは「〜または」、NOTは「の反対」という意味になります。
+                例えば、<br>
+                <strong>今朝の朝ごはんにパンを食べて、かつ牛乳を飲んだ人</strong><br>
+                <strong>今朝の朝ごはんにご飯（米）を食べた、または食べなかった人</strong><br>
+                というような条件を表現できます。
+            </p>
+            <br>
+            <p>
+                論理演算子は、AND（かつ）、OR（または）、NOT（否定）の３つで、JavaScriptでは次のように表現します。<br>
+                <div>
+                    <strong>&&</strong>（AND）、<strong>||</strong>（OR）、<strong>!</strong>（NOT）
+                </div>
+            </p>
+            <div>
+                <pre><span>論理演算子の使い方</span><code class="lang-javascript">
+// 真 かつ 真
+console.log(true && true); // true
+// 真 かつ 偽
+console.log(false && true); // false
+
+// 偽 または 真
+console.log(true || false); // true
+// 偽 または 偽
+console.log(false || false); // false
+
+// 否定(真 かつ 偽)
+console.log(!(true && false)); // true
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">比較演算について</h2>
+            <h3 class="subtitle">
+                以上、以下、未満、超、イコール、NOTイコール
+            </h3>
+            <p>値を比較する比較演算子(<strong>&lt;, &gt;, &lt;=, &gt;=, ===, !==</strong>)を使用できます。数値の大小や文字列の比較などに使用でき、結果として真偽値（Boolean）を返します。<br>
+                例えば、<br>
+                <strong>100 と 50 + 50 が 同じかどうか</strong><br>
+                <strong>'おはよう' と 'こんにちは' が 同じかどうか</strong><br>
+                <strong>33 は 100 - 60 より 低いかどうか</strong><br>
+                というような条件を表現できます。
+            </p>
+            <div>
+                <pre><span>比較演算子の使い方</span><code class="lang-javascript">
+// &lt; の使い方
+console.log(50 &lt; 100); // true
+// &lt;= の使い方
+console.log(50 &lt;= 100); // true
+
+// &gt; の使い方
+console.log(50 &gt; (50 + 20)); // false
+// &gt;= の使い方
+console.log(50 &gt;= (50 + 20)); // false
+
+// === の使い方
+console.log('犬' === '犬'); // true
+// !== の使い方
+console.log(20 !== 20); // false
+
+// 問題 次の結果は true または false のどちらになるでしょう？
+console.log(20 === '20');
+                </code></pre>
+            </div>
+            <br>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">if文について</h2>
+            <h3 class="subtitle">
+                条件の結果で処理を分岐させるための構文です
+            </h3>
+            <p>if文とは、<strong>もし条件が 真（true） だとしたら「この処理」で、偽（false） だったら「こっちの処理」</strong>のような分岐処理を実行するためのものです。</p>
+            <br>
+            <div>
+                <h4>if文の構文</h4>
+                <pre>
+if( 条件文 ) {
+    条件が真だった場合の処理
+}
+                </pre>
+                <br>
+                <p>
+                    また、条件に一致しなかった場合の処理を記載する else や、一致しない場合に改めて条件を設定する else if を使用することができます。
+                </p>
+                <pre>
+
+if( 条件文1 ) {
+    条件文1が真だった場合の処理
+} else if ( 条件文2 ) {
+    条件文1が偽で条件文2が真だった場合の処理
+} else {
+    いずれも偽だった場合の処理
+}
+                </pre>
+                <br>
+                <pre><span>実際のif文の書き方</span><code class="lang-javascript">
+let i = 100;
+if( i === 100 ) {
+    console.log(i + 'は100です');
+    i += 50;
+}
+
+if( i > 150) {
+    i--;
+} else if (i > 100){
+    i += 50;
+} else {
+    i++;
+}
+
+console.log('変数 i の値は ' + i + ' です');
+                </code></pre>
+                <br>
+                <article class="message is-info">
+                    <div class="message-body">
+                      JavaScriptでは、以下の場合 false（偽）と同等に評価されます。<br>
+                      <strong>null、0、空文字列 ("")、undefined</strong><br>
+                      上記以外は true（真）と同等に評価されます。
+                    </div>
+                </article>
+                <pre><span>if文で偽になる条件</span><code class="lang-javascript">
+let val = false;
+if( val ) {
+    console.log('真です');
+} else {
+    console.log('偽です'); // こっちが出力されます
+}
+// 上記と同様の結果になる値
+val = '';
+val = "";
+val = null;
+val = 0;
+val = undefined;
+                </code></pre>
+            </div>
+            <br>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">switch文について</h2>
+            <h3 class="subtitle">
+                複数の条件分岐を見やすく表現できます
+            </h3>
+            <p>switch文 は switchに渡される 式 を評価し、その式の値が case 節と一致した( === で true になる)場合に、その case の処理を実行します。<br>
+
+            </p>
+            <br>
+            <div>
+                <h4>switch文の構文</h3>
+                <pre>
+switch ( 式 ) {
+    case 値１ :
+        式 が 値１ と同等なときの処理
+        break;
+    case 値２ :
+        式 が 値２ と同等なときの処理
+        break;
+    case 値３ :
+        式 が 値３ と同等なときの処理
+        break;
+    default:
+        どの case にも該当しないときの処理
+}
+                </pre>
+            </div>
+            <br>
+            <div>
+                <pre><span>switch文 の使い方</span><code class="lang-javascript">
+const animal = '猫';
+switch(animal) {
+    case '犬':
+        console.log('わんわん');
+        break;
+    case '鳥':
+        console.log('ちゅんちゅん');
+        break;
+    case '猫':
+        console.log('にゃんにゃん'); // この処理が実行されます
+        break;
+    default:
+        console.log('その他の鳴き声');
+}
+                </code></pre>
+            </div>
+            <br>
+            <p>case の処理に break; を記述することで処理を抜けます。もし、この break; の記述がない場合は、処理を抜けずに次の case または default の処理を実行します。</p>
+            <br>
+            <div>
+                <pre><span>break の役割</span><code class="lang-javascript">
+const number = 2;
+switch(number) {
+    case 0:
+        console.log(0);
+        break;
+    case 1:
+        console.log(1);
+        break;
+    case 2:
+        console.log(2); // この処理が実行されます
+    case 3:
+        console.log(3); // この処理が実行されます
+    default:
+        console.log(-1); // この処理が実行されます
+}
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">if文 と switch文 の使い分け</h2>
+            <p>if文 では 等価演算子 と 論理演算子 を使用することが出来るため、<strong>〜以上や、かつ、または、等の条件で分岐させる必要がある場合</strong>は if文 を使用しましょう。<br>
+                switch文 では 複数の case 節 を見やすく定義できるため、<strong>値の一致によって処理を分岐させる場合、かつ分岐処理が複数ある場合</strong>は switch文 を使用しましょう。
+            </p>
+            <br>
+            <div>
+                <pre><span>if文 と switch文 の使い分け</span><code class="lang-javascript">
+// --------------------
+// 年齢が 20歳未満 の 場合は 「未成人」、20歳以上なら 「成人」と コンソールへ出力 する場合
+// --------------------
+const age = 19;
+let result;
+if ( age &lt; 20 ) {
+    result = '未成人';
+} else if ( age &gt;= 20 ) {
+    result = '成人';
+}
+console.log(result);
+
+// --------------------
+// 色の名前 によって その色に関連する物 を コンソールへ出力 する場合
+// --------------------
+const color = '赤';
+let obj;
+
+// if文で実行する場合
+if ( color === '黄' ) {
+    obj = 'バナナ';
+} else if ( color === '赤' ) {
+    obj = 'ポスト';
+} else if ( color === '緑' ) {
+    obj = '葉っぱ';
+} else if ( color === '青' ) {
+    obj = '海';
+}
+console.log(obj);
+
+// switch文で実行する場合
+switch ( color ) {
+    case '黃':
+        obj = 'バナナ';
+        break;
+    case '赤':
+        obj = 'ポスト';
+        break;
+    case '緑':
+        obj = '葉っぱ';
+        break;
+    case '青':
+        obj = '海';
+        break;
+}
+console.log(obj);
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">課題</h2>
+        </div>
+        <article class="message is-link">
+            <div class="message-header">
+              <p>課題１</p>
+            </div>
+            <div class="message-body">
+                もし <strong>変数x</strong> が
+                50 以上なら <strong>[xの数値を出力]は50以上です。</strong>、
+                50未満であれば <strong>[xの数値を出力]は50未満です。</strong>
+                とコンソールへ出力されるプログラムを作成してください。
+            </div>
+            <div>
+                <pre><code class="lang-javascript">
+// 0以上100未満の数値をランダムでxに代入する
+let x = Math.floor(Math.random() * Math.floor(100));
+// ここからコーディング
+                </code></pre>
+            </div>
+          </article>
+          <article class="message is-link">
+            <div class="message-header">
+              <p>課題２</p>
+            </div>
+            <div class="message-body">
+                もし <strong>変数age</strong> が
+                0以上6未満であれば<strong>[ageの数値を出力]歳: 未就学児</strong>、
+                6以上12以下であれば<strong>[ageの数値を出力]歳: 小学生</strong>、
+                13以上15以下であれば<strong>[ageの数値を出力]歳: 中学生</strong>、
+                16以上は<strong>[ageの数値を出力]歳: 義務教育は終了しました</strong>、
+                とコンソールへ出力されるプログラムを作成してください。
+            </div>
+            <div>
+                <pre><code class="lang-javascript">
+// 0以上20未満の数値をランダムでxに代入する
+let age = Math.floor(Math.random() * Math.floor(20));
+// ここからコーディング
+                </code></pre>
+            </div>
+          </article>
+          <article class="message is-link">
+            <div class="message-header">
+              <p>課題３</p>
+            </div>
+            <div class="message-body">
+                もし <strong>変数weather</strong> が
+                「晴れ」なら <strong>今日は天気がいいですね。</strong>、
+                「曇り」なら <strong>明日は雨が降るかもしれません。</strong>、
+                「雨」なら <strong>雨の音に癒やされますね。</strong>、
+                その他であれば <strong>天気に注意してください。</strong>
+                をコンソールに表示するプログラムを作成してください。
+            </div>
+            <div>
+                <pre><code class="lang-javascript">
+// weather に '晴れ', '曇り', '雨', '台風' のいずれかをランダムで代入する
+const weathers = ['晴れ', '曇り', '雨', '台風'];
+const weather = weathers[Math.floor(Math.random() * Math.floor(4))];
+// ここからコーディング
+                </code></pre>
+            </div>
+          </article>
+    </section>
+</body>
+</html>
