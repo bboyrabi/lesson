@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptの基礎その３</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <!--
+        Highlight.js
+        https://github.com/highlightjs/highlight.js
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/agate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">JavaScript</h1>
+                <div class="subtitle">繰り返し（ループ）処理</div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title">配列について</h2>
+            <h3 class="subtitle">
+                一つの変数に、複数の値をリスト形式に集めたものを配列といいます
+            </h3>
+            <p>値である文字列や数値、真偽値などを、一つのカテゴリーで複数集めたものを配列といいます。<br>
+                例えば、カレーライスに必要な材料 の場合の「お肉、にんじん、たまねぎ、じゃがいも、ルー、水、油」を配列にすることができます。<br>
+                配列を使えば、中身のデータを先頭から末尾まで<strong>繰り返し（ループ）処理</strong>を実行し、データに対して同じ処理を実行することや、数値の合計を計算するといったことができるようになります。<br>
+                <br>
+                配列は、文字列や数値、真偽値と同じく値の型となります。
+            </p>
+            <br>
+            <div>
+                <pre><span>配列の作り方とデータの取り出し方</span><code class="lang-javascript">
+// 空の配列を変数に代入します
+const array = [];
+// 空の配列をコンソールに出力します
+console.log(array);
+
+// カレーの材料を格納した配列を変数に代入します
+const curry = ['お肉', 'にんじん', 'たまねぎ', 'じゃがいも', 'ルー', '水', '油'];
+// 配列をコンソールに出力します
+console.log(curry);
+
+// 配列の中身のデータ数をコンソールに出力します
+console.log(curry.length); // 7
+
+// 配列の先頭をコンソールに出力します
+console.log(curry[0]); // お肉
+
+// 配列の末尾のデータをコンソールに出力します
+console.log(curry[curry.length - 1]); // 油
+
+// 'たまねぎ' を '玉ねぎ' に変更します
+curry[2] = '玉ねぎ';
+                </code></pre>
+            </div>
+            <br>
+            <article class="message is-info">
+                <div class="message-body">
+                    <strong>配列のインデックス番号</strong><br>
+                    配列のインデックス番号とは、<strong>配列内のデータが何番目に格納されているかを表す数値</strong>です。このインデックス番号の<strong>最初の数値は0</strong>となり、このインデックス番号を使用して<strong>配列内のデータを呼び出すことができます</strong>。
+                </div>
+              </article>
+            <br>
+            <div>
+                <pre><span>配列の操作</span><code class="lang-javascript">
+// 配列の最後に新しいデータを追加します
+curry.push('お米');
+// 配列の最後のデータを削除します
+curry.pop();
+
+// 配列の先頭に新しいデータを追加します
+curry.unshift('お米');
+// 配列の先頭のデータを削除します
+curry.shift();
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title">for文について</h2>
+            <h3 class="subtitle">
+                繰り返し処理を行います
+            </h3>
+            <p>for文 は繰り返し処理を行うためのものです。for文 には次のような機能があります。<br>
+                <ul>
+                    <li>
+                        <strong>カウンター</strong>: ループの最初に、初期化される値を宣言します。
+                    </li>
+                    <li>
+                        <strong>終了条件</strong>: ループが終了する 条件 を設定します。
+                    </li>
+                    <li>
+                        <strong>イテレーター</strong>: ループごとの最後に行われる処理です。主に カウンター で宣言した値を増加（インクリメント）させます。
+                    </li>
+                </ul>
+                <br>
+                つまり、<strong>カウンター</strong>で設定した値を<strong>イテレーター</strong>で増加させて<strong>終了条件</strong>に達するとループを終了する、というようになります。
+            </p>
+            <br>
+            <div>
+                <h4>for文の構文</h4>
+                <pre>
+for ( カウンター ; 終了条件 ; イテレーター ) {
+    繰り返し処理
+}
+                </pre>
+                <br>
+                <pre><span>100回繰り返すループ処理</span><code class="lang-javascript">
+// 0 から 99 まで繰り返す処理
+for ( let i = 0 ; i &lt; 100 ; i++ ) {
+    console.log(i);
+}
+                </code></pre>
+            </div>
+            <br>
+            <div>
+                <pre><span>カレーの材料を全てコンソールに出力する処理</span><code class="lang-javascript">
+for ( let i = 0; i &lt; curry.length; i++ ) {
+    console.log(curry[i]);
+}
+// お肉
+// にんじん
+// たまねぎ
+// じゃがいも
+// ルー
+// 水
+// 油
+
+let text = 'カレーに必要な材料は、';
+for ( let i = 0; i &lt; curry.length; i++ ) {
+    text += curry[i];
+    // 最後のデータの後には'、'を付けない
+    if( i !== curry.length - 1 ) {
+        text += '、';
+    }
+}
+text += 'です';
+console.log(text); // カレーに必要な材料は、お肉、にんじん、玉ねぎ、じゃがいも、ルー、水、油です
+                </code></pre>
+            </div>
+            <br>
+            <article class="message is-danger">
+                <div class="message-body">
+                    <strong>無限ループに気を付けましょう</strong><br>
+                    for文 などの 繰り返し処理では、必ず終了条件に達するように設定する必要があります。終了条件に達することが出来ない場合、無限にループし続け、ブラウザーが強制的に停止するか、クラッシュしてしまいます。
+                </div>
+            </article>
+            <div>
+                <pre><span>無限ループの例</span><code class="lang-javascript">
+// * 実行しないでください
+// 終了条件が常に true（真）であるため、ループし続けてしまいます
+for(let i = 0; true; i++) {
+    console.log('無限ループです');
+}
+                </code></pre>
+            </div>
+            <br>
+            <h3 class="subtitle">
+                break と continue
+            </h3>
+            <p>for文 では break を使うことで、ループを終了することができます。また、 continue を使えば、処理を中断して次のループに移行することができます。</p>
+            <div>
+                <pre><span>break と continue の例</span><code class="lang-javascript">
+// 数値が格納された配列を作成します
+const numberList = [23, 56, 2, 5, 0, 45, 6];
+
+// ----------
+// 例: 配列内にある 数値 0 のインデックス番号を調べたい場合
+// ----------
+// index を宣言し -1 で初期化します
+let index = -1;
+for(let i = 0; i &lt; numberList.length; i++) {
+    if(numberList[i] === 0) {
+        // 0 が見つかったので index に i を代入し、 break でループ処理を抜けます
+        index = i;
+        break;
+    }
+}
+console.log('数値0のindex番号は ' + index + ' です' ); // 数値0のindex番号は 4 です
+
+// ----------
+// 例: 配列内の 偶数 をコンソールに出力したい場合
+// ----------
+for(let i = 0; i &lt; numberList.length; i++) {
+    // 数値を 2で割った余り が 0 であれば、変数に true、そうでなければ false を代入します
+    const isEvenNumber = numberList[i] % 2 === 0;
+    // 偶数でなければ continue でこの後の処理をスキップして次のループに移行します
+    if( !isEvenNumber ) {
+        continue;
+    }
+    console.log(numberList[i] + ' は偶数です');
+}
+// 56 は偶数です
+// 2 は偶数です
+// 0 は偶数です
+// 6 は偶数です
+                </code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">課題</h2>
+        </div>
+        <article class="message is-link">
+            <div class="message-header">
+              <p>課題１</p>
+            </div>
+            <div class="message-body">
+                ドラえもんに出てくるキャラクター<strong>５人</strong>の名前で配列を作成し、<strong>インデックス番号が３番</strong>のデータをコンソールに表示するプログラムを作成してください。
+            </div>
+        </article>
+        <article class="message is-link">
+            <div class="message-header">
+              <p>課題２</p>
+            </div>
+            <div class="message-body">
+                課題１で作成した配列の<strong>インデックス番号 ２番と３番 のデータを入れ替えて</strong> インデックス番号が３番 のデータをコンソールに表示するプログラムを作成してください。
+            </div>
+        </article>
+        <article class="message is-link">
+            <div class="message-header">
+              <p>課題３</p>
+            </div>
+            <div class="message-body">
+                配列内の <strong>男</strong> の数を数えてコンソールに表示するプログラムを作成してください。
+            </div>
+            <div>
+                <pre><code class="lang-javascript">
+const gennders = ['男', '女', '女', '女', '男', '女', '男', '男', '女', '男', '女'];
+// ここからコーディング
+                </code></pre>
+            </div>
+        </article>
+        <article class="message is-link">
+            <div class="message-header">
+              <p>課題４</p>
+            </div>
+            <div class="message-body">
+                ウォーリーを探せ！配列内の <strong>ウォーリーのインデックス番号</strong> をコンソールに表示するプログラムを作成してください。
+            </div>
+            <div>
+                <pre><code class="lang-javascript">
+const wallys = ['ウーフ', 'ウェンダ', 'しろひげ', 'ウォーリー', 'オドロー', 'ウォーリー親衛隊'];
+const wally = 'ウォーリー';
+// ここからコーディング
+                </code></pre>
+            </div>
+        </article>
+    </section>
+</body>
+</html>
