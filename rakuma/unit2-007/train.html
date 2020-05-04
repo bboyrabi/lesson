@@ -133,18 +133,20 @@ console.log(20 === '20');
             <h3 class="subtitle">
                 条件の結果で処理を分岐させるための構文です
             </h3>
-            <p>if文とは、<strong>もし条件が 真（true） だとしたら「この処理」で、偽（false） だったら「こっちの処理」</strong>のような分岐処理を実行するためのものです。</p>
+            <p>if文とは、<strong>もし条件が 真（true） だとしたら「真のときの処理」、偽（false） だったら「偽のときの処理」</strong>のような分岐処理に必要なものです。</p>
             <br>
             <div>
                 <h4>if文の構文</h4>
                 <pre>
 if( 条件文 ) {
     条件が真だった場合の処理
+} else {
+    条件が偽だった場合の処理
 }
                 </pre>
                 <br>
                 <p>
-                    また、条件に一致しなかった場合の処理を記載する else や、一致しない場合に改めて条件を設定する else if を使用することができます。
+                    また、一致しない場合に改めて条件を設定する else if を使用することができます。
                 </p>
                 <pre>
 
@@ -339,15 +341,15 @@ console.log(obj);
               <p>課題１</p>
             </div>
             <div class="message-body">
-                もし <strong>変数x</strong> が
-                50 以上なら <strong>[xの数値を出力]は50以上です。</strong>、
-                50未満であれば <strong>[xの数値を出力]は50未満です。</strong>
+                もし 変数<strong>r</strong> が <br>
+                50 以上なら <strong>[rの数値]は50以上です。</strong><br>
+                50未満であれば <strong>[rの数値]は50未満です。</strong><br>
                 とコンソールへ出力されるプログラムを作成してください。
             </div>
             <div>
                 <pre><code class="lang-javascript">
-// 0以上100未満の数値をランダムでxに代入する
-let x = Math.floor(Math.random() * Math.floor(100));
+// 0以上100未満の数値をランダムでrに代入する
+let r = Math.floor(Math.random() * Math.floor(100));
 // ここからコーディング
                 </code></pre>
             </div>
@@ -357,17 +359,17 @@ let x = Math.floor(Math.random() * Math.floor(100));
               <p>課題２</p>
             </div>
             <div class="message-body">
-                もし <strong>変数age</strong> が
-                0以上6未満であれば<strong>[ageの数値を出力]歳: 未就学児</strong>、
-                6以上12以下であれば<strong>[ageの数値を出力]歳: 小学生</strong>、
-                13以上15以下であれば<strong>[ageの数値を出力]歳: 中学生</strong>、
-                16以上は<strong>[ageの数値を出力]歳: 義務教育は終了しました</strong>、
+                もし 変数<strong>personsAge</strong> が <br>
+                0以上6未満であれば<strong>[personsAgeの数値]歳: 未就学児</strong><br>
+                6以上12以下であれば<strong>[personsAgeの数値]歳: 小学生</strong><br>
+                13以上15以下であれば<strong>[personsAgeの数値]歳: 中学生</strong><br>
+                16以上は<strong>[personsAgeの数値]歳: 義務教育は終了しました</strong><br>
                 とコンソールへ出力されるプログラムを作成してください。
             </div>
             <div>
                 <pre><code class="lang-javascript">
 // 0以上20未満の数値をランダムでxに代入する
-let age = Math.floor(Math.random() * Math.floor(20));
+let personsAge = Math.floor(Math.random() * Math.floor(20));
 // ここからコーディング
                 </code></pre>
             </div>
@@ -377,11 +379,11 @@ let age = Math.floor(Math.random() * Math.floor(20));
               <p>課題３</p>
             </div>
             <div class="message-body">
-                もし <strong>変数weather</strong> が
-                「晴れ」なら <strong>今日は天気がいいですね。</strong>、
-                「曇り」なら <strong>明日は雨が降るかもしれません。</strong>、
-                「雨」なら <strong>雨の音に癒やされますね。</strong>、
-                その他であれば <strong>天気に注意してください。</strong>
+                もし 変数<strong>weather</strong> が<br>
+                「晴れ」なら <strong>今日は天気がいいですね。</strong><br>
+                「曇り」なら <strong>明日は雨が降るかもしれません。</strong><br>
+                「雨」なら <strong>雨の音に癒やされますね。</strong><br>
+                その他であれば <strong>天気に注意してください。</strong><br>
                 をコンソールに表示するプログラムを作成してください。
             </div>
             <div>

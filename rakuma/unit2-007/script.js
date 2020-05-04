@@ -153,7 +153,49 @@ switch ( color ) {
         obj = '海';
         break;
 }
-console.log(obj);
+
+
+// 課題１の答え
+// 0以上100未満の数値をランダムでxに代入する
+let r = Math.floor(Math.random() * Math.floor(100));
+// ここからコーディング
+if(r >= 50) {
+    console.log(r + ' は50以上です。');
+} else {
+    console.log(r + ' は50未満です。');
+}
+
+// 課題２の答え
+// 0以上20未満の数値をランダムでxに代入する
+let personsAge = Math.floor(Math.random() * Math.floor(20));
+// ここからコーディング
+if(personsAge < 6) {
+    console.log(personsAge + '歳: 未就学児');
+} else if(personsAge >= 6 && personsAge <= 12) {
+    console.log(personsAge + '歳: 小学生');
+} else if(personsAge >= 13 && personsAge <= 15) {
+    console.log(personsAge + '歳: 中学生');
+} else {
+    console.log(personsAge + '歳: 義務教育は終了しました');
+}
+
+// 課題３の答え
 const weathers = ['晴れ', '曇り', '雨', '台風'];
 const weather = weathers[Math.floor(Math.random() * Math.floor(4))];
+// ここからコーディング
+let text = '';
+switch(weather) {
+    case '晴れ':
+        text = '今日は天気がいいですね。';
+        break;
+    case '曇り':
+        text = '明日は雨が降るかもしれません。';
+        break;
+    case '雨':
+        text = '雨の音に癒やされますね。';
+        break;
+    default:
+        text = '天気に注意してください。';
+}
 console.log(weather);
+console.log(text);
