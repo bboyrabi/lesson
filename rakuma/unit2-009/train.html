@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptの基礎その４</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <!--
+        Highlight.js
+        https://github.com/highlightjs/highlight.js
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/agate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <section class="hero is-link">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">JavaScript</h1>
+                <div class="subtitle">オブジェクトと関数</div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">オブジェクトの基本</h2>
+            <h3 class="subtitle">
+                オブジェクトは関連するデータや変数、関数を集めたもの
+            </h3>
+            <p>値である文字列や数値、真偽値に加えて、配列や関数などを、関連するデータを集合させたものです。<br>
+                配列と異なるのは、配列はリスト形式でインデックス番号を用いてデータにアクセスしましたが、オブジェクトは<strong>メンバー</strong>と呼ばれるデータの名前を使用してデータにアクセスします。
+            </p>
+            <br>
+            <div>
+                <pre><span>オブジェクトの操作</span><code class="lang-javascript">
+// myDog というオブジェクトを作成します
+let myDog = {};
+console.log(myDog);
+
+// myDog にメンバーを追加し値を設定します
+myDog.type = 'dog';
+myDog.name = 'ポチ';
+myDog.age = 2;
+myDog.gender = 'メス';
+myDog.feeds = ['ユニ・チャーム愛犬元気', 'ドギーマン チーズキューブ', 'おいしい犬ごはん'];
+console.log(myDog);
+// {
+//     age: 2
+//     feeds: Array(3)
+//         0: "ユニ・チャーム愛犬元気"
+//         1: "ドギーマン チーズキューブ"
+//         2: "おいしい犬ごはん"
+//         length: 3
+//     gender: "メス"
+//     name: "ポチ"
+//     type: "dog"
+// }
+
+// 名前をコンソールに出力します
+console.log( myDog.name );   // ポチ
+
+// 食べている餌の名前を全てコンソールに出力します
+for( let i = 0; i &lt; myDog.feeds.length; i++ ) {
+    console.log(myDog.feeds[i]);
+}
+                </code></pre>
+            </div>
+            <br>
+            <p>オブジェクトの作成時に、オブジェクト内のデータをまとめて作成することもできます。</p>
+            <br>
+            <div>
+                <pre><span>オブジェクトの作成</span><code class="lang-javascript">
+// 以下のように作成することもできます
+let myCat = {
+    age: 4,
+    feeds: ['銀のスプーン', 'ジューシー'],
+    gender: "メス",
+    name: "ミイ",
+    type: "cat"
+}
+                </code></pre>
+            </div>
+        </div>
+        <br>
+        <article class="message is-info">
+            <div class="message-body">
+              <strong>スネークケース</strong>と<strong>キャメルケース</strong>について<br>
+              変数名や、関数名、メンバー名には名前の付け方（命名規則）があります。この命名規則は、言語特有のものやプロジェクト、企業ごとに独自のものがあったりします。代表的なものとして、このスネークケースとキャメルケースがあります。日本語にすると、蛇とラクダです。<br>
+              <br>
+              スネークケースは、単語を<strong>アンダーバー（_）</strong>で区切ります。例: is_red、first_name、blood_type<br>
+              キャメルケースは、単語を<strong>大文字</strong>で区切ります。例: isRed, firstName, bloodType<br>
+              <br>
+              また、HTMLやCSSで使用される、単語をハイフン（-）で区切る規則のことを<strong>ケバブケース</strong>といいます。
+            </div>
+        </article>
+        <br>
+        <div>
+            <pre><span>メンバー名がケバブケースである場合のアクセス</span><code class="lang-javascript">
+// もしメンバー名がケバブケースだった場合、ドットではアクセスすることができません
+// obj.member-name = 'name';  ❌
+
+// 角括弧を使用してアクセスすることができます
+obj['member-name'] = 'name';
+            </code></pre>
+        </div>
+        <br>
+        <article class="message is-info">
+            <div class="message-body">
+                ドット（.）でアクセスする方法は多くの言語で採用されています。普段使用している<strong>console.log</strong>も<strong>console というオブジェクトのメンバー log にアクセスしている</strong>ということが理解できたかと思います。
+            </div>
+        </article>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">関数（function）について</h2>
+            <h3 class="subtitle">
+                関数とは、例えるなら魔法
+            </h3>
+            <p>プログラミング初学者にとって一つの障壁になるのが、この関数です。数学の関数とは似ているようで異なります。<br>
+                関数は、<strong>値を受け取って（受け取らない場合もある）、決められた処理を実行し、結果を返す（返さない場合もある）</strong>といったプログラムのことです。
+                この関数は、<strong>自由に作成することができ</strong>一度作れば何度でも<strong>呼び出して</strong>使うことができます。<br>
+                <br>
+                簡単に言うと、<strong>ある処理をひとまとめにしたもの</strong>です。<br>
+                <br>
+                同じ処理が繰り返し行われる場合などに関数を定義しておくと、プログラミングの可読性の向上や、修正などのメンテナンスが容易になります。
+            </p>
+            <br>
+            <p>
+                JavaScriptの場合、関数には<strong>無名関数</strong>、<strong>名前付き関数</strong>があり、作成した関数は<strong>変数に代入することができます</strong>。
+            </p>
+            <br>
+            <div>
+                <h4>無名関数 の場合</h4>
+                <pre>
+function(引数) {
+    実行される処理を記述し、
+    return; で処理を終了します
+    返却する必要のある値があれば return 戻り値; とすることで返すことができます
+}
+                </pre>
+                <br>
+                <h4>名前付き関数 の場合</h4>
+                <pre>
+function 関数名(引数) {
+    実行される処理を記述し、
+    return; で処理を終了します
+    返却する必要のある値があれば return 戻り値; とすることで返すことができます
+}
+
+関数は、 関数名( [引数]... ); とすることで呼び出すことができます
+                </pre>
+            </div>
+            <br>
+            <div>
+                <pre><span>functionの作成と実行</span><code class="lang-javascript">
+// 変数weather を定義し 晴れ で初期化します
+let weather = '晴れ';
+
+// 無名関数を作成して 変数makeWeatherSentense に代入します
+const makeWeatherSentense = function( weather ) {
+    if(!weather) {
+        weather = '不明';
+    }
+    return '今日の天気は、' + weather + 'です';
+}
+// 関数を呼び出し、戻り値を 変数sentense に代入します
+let sentense = makeWeatherSentense( weather );
+// 変数sentense をコンソールに出力します
+console.log(sentense);
+
+
+// 名前付き関数viewWeatherSentense を作成します
+function viewWeatherSentense ( weather ) {
+    if(!weather) {
+        weather = '不明';
+    }
+    console.log('今日の天気は、' + weather + 'です');
+    // 戻り値がない場合で、この後に続く処理がない場合は return; を省略できます
+}
+// 関数を呼び出します
+viewWeatherSentense( werather );
+                </code></pre>
+                <br>
+                <p>関数内から関数を呼び出すこともできます。<br>
+                    上記の関数<strong>viewWeatherSentense</strong>の処理は、変数<strong>makeWeatherSentense</strong>とほとんど同じであるため関数を呼び出して簡略化します。</p>
+                <pre><span>関数から関数を呼び出す</span><code class="lang-javascript">
+function viewWeatherSentense ( weather ) {
+    // 名前付き関数 makeWeatherSentense の引数に この関数で受け取った 引数weather を渡し実行します
+    // 戻り値をコンソールに出力します
+    console.log( makeWeatherSentense( weather ) );
+}
+                </code></pre>
+            </div>
+        </div>
+        <br>
+        <article class="message is-info">
+            <div class="message-body">
+              <strong>グローバル変数</strong>と<strong>ローカル変数</strong><br>
+              基本的に同じプログラム内で同じ名前の変数名を定義しようとするとエラーになります。
+              複数の同一の変数名が存在すると、どの変数のことを指しているのか分からないので当然ですね。<br>
+              <br>
+              グローバル変数とは、<strong>関数の外側で定義した変数で、関数内でも呼び出すことが可能です</strong>。<br>
+              ローカル変数とは、<strong>関数内で定義された変数のことで、関数が終了したタイミングで廃棄されます。</strong>
+              ローカル変数ではグローバル変数と同名の変数を定義できますが、使う際にはグローバル変数ではなくローカル変数の値となります。
+            </div>
+        </article>
+        <div>
+            <pre><span>グローバル変数とローカル変数</span><code class="lang-javascript">
+// グローバル変数hello を定義します
+let hello = 'Hello!';
+
+function greeting() {
+    // 関数内で グローバル変数hello を呼び出してみます
+    console.log(hello);
+}
+greeting(); // Hello!
+
+
+function sayHello() {
+    // 関数内で グローバル変数hello と同じ名前の変数を定義します
+    let hello = 'Hello World!';
+    console.log(hello);
+}
+sayHello(); // 'Hello World!'
+
+
+function setGoodMorning() {
+    // ローカル変数greet を定義します
+    let greet = 'Good morning!';
+}
+// ローカル変数greet を グローバルで使用してみます
+console.log(greet); // Uncaught ReferenceError: greet is not defined
+            </code></pre>
+        </div>
+        <br>
+        <article class="message is-info">
+            <div class="message-body">
+                <strong>スコープ</strong>について
+                グローバル変数やローカル変数など、<strong>変数を呼び出せる範囲</strong>のことをスコープといいます。<br>
+                またスコープにも<strong>グローバルスコープ</strong>と<strong>ローカルスコープ</strong>があります。<br>
+                <br>
+                - <strong>グローバルスコープ</strong>は、<strong>どこからでも呼び出し可能な変数</strong>のことで、グローバル変数が持つ範囲になります。<br>
+                - <strong>ローカルスコープ</strong>は、<strong>関数スコープ</strong>と<strong>ブロックスコープ</strong>に分かれており、グローバル変数以外の変数は、このどちらかに該当します。<br>
+                <br>
+                -- <strong>関数スコープ</strong>は、関数内で定義された変数が持つ範囲で、関数が終了するたびに破棄されます。<br>
+                -- <strong>ブロックスコープ</strong>は、if文 や for文 などの波括弧（{}）内で定義された変数が持つ範囲で、ブロックを抜けると破棄されます。<br>
+            </div>
+        </article>
+        <div>
+            <pre><span>スコープの例</span><code class="lang-javascript">
+let scope = 'global';
+const demo = function() {
+    let scope = 'function';
+    if( true ) {
+        let scope = 'block';
+        console.log( scope ); // block
+    }
+    console.log( scope ); // function
+}
+demo();
+console.log( scope ); // global
+            </code></pre>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">課題</h2>
+            <article class="message is-info">
+                <div class="message-header">
+                  <p>課題１</p>
+                </div>
+                <div class="message-body">
+                    0から23までのランダム値である 整数hour を使用して、hourが<br>
+                    <strong>0から11までのときは「午前xx時です」</strong><br>
+                    <strong>12ピッタリのときは「正午です」</strong><br>
+                    <strong>13から23までのときは「午後xx時です」</strong><br>
+                    とコンソールに表示する <strong>関数viewHour</strong> を作成して実行してください
+                </div>
+                <pre><code class="lang-javascript">
+// 0 - 23までの整数が返却されるプログラム
+let hour = Math.floor(Math.random() * Math.floor(24))
+// ここからコーディングしてください
+                </code></pre>
+            </article>
+            <article class="message is-info">
+                <div class="message-header">
+                  <p>課題２</p>
+                </div>
+                <div class="message-body">
+                    任意の名前の引数で値を受け取り、<strong>引数が数値なら 50を足し、文字列であれば 任意の文字列を末尾に足した値を 戻り値として返却する</strong>関数test2 を作成してください。足す文字列は自由でOKです。<br>
+                    以下のコードで実行（テスト）してみて、値が同じであればクリアです。
+                </div>
+                <pre><code class="lang-javascript">
+// テストコード
+console.log(test2('文字列'));    // 文字列[任意の文字列]
+console.log(test2('22'));       // 22[任意の文字列]
+console.log(test2(42));         // 92
+console.log(test2([]));         // undefined
+console.log(test2(true));       // undefined
+console.log(test2({}));         // undefined
+                </code></pre>
+            </article>
+        </div>
+    </section>
+</body>
+</html>
