@@ -96,13 +96,7 @@ function viewHour(hour) {
 console.log('hour: ' + hour);
 viewHour(hour);
 
-/**
- * 任意の名前の引数で値を受け取り、
- * 引数が数値なら 50を足し、文字列であれば 任意の文字列を末尾に足した値を
- * 戻り値として返却する関数を作成して呼び出し、返ってきた値をコンソールに出力してください。
- * 関数名や足す文字列は自由でOKです。
- */
-
+// 課題２の答え
 function test2(val) {
     switch(typeof val) {
         case 'number':
