@@ -79,6 +79,27 @@ demo();
 console.log( scope );
 
 // 課題１の答え
+let person = {
+    name: {
+        first: 'のび太',
+        last: '野比'
+    },
+    gender: 'male',
+    country: 'JP'
+}
+console.log(person.name.last + ' ' + person.name.first);
+
+// [おまけ]関数を追加した場合
+person.getFullname = function() {
+    return this.name.last + ' ' + this.name.first;
+}
+console.log(person.getFullname());
+
+// 課題２の答え
+person.hobby = '寝ること';
+console.log(person.hobby);
+
+// 課題３の答え
 // 0 - 23までの整数が返却されるプログラム
 let hour = Math.floor(Math.random() * Math.floor(24))
 // ここからコーディングしてください
@@ -96,7 +117,7 @@ function viewHour(hour) {
 console.log('hour: ' + hour);
 viewHour(hour);
 
-// 課題２の答え
+// 課題４の答え
 function test2(val) {
     switch(typeof val) {
         case 'number':

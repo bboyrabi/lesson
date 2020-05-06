@@ -274,6 +274,33 @@ console.log( scope ); // global
                   <p>課題１</p>
                 </div>
                 <div class="message-body">
+                    オブジェクトperson の名前（name）を 姓 名 の順でコンソールに表示するプログラムを作成してください
+                </div>
+                <pre><code class="lang-javascript">
+let person = {
+    name: {
+        first: 'のび太',
+        last: '野比'
+    },
+    gender: 'male',
+    country: 'JP'
+}
+// ここからコーディングしてください
+                </code></pre>
+            </article>
+            <article class="message is-info">
+                <div class="message-header">
+                  <p>課題２</p>
+                </div>
+                <div class="message-body">
+                    課題１の オブジェクトperson に新しく メンバーhobby を作成し値として '寝ること' を設定して、メンバーhobby をコンソールに表示するプログラムを作成してください
+                </div>
+            </article>
+            <article class="message is-info">
+                <div class="message-header">
+                  <p>課題３</p>
+                </div>
+                <div class="message-body">
                     0から23までのランダム値である 整数hour を使用して、hourが<br>
                     <strong>0から11までのときは「午前xx時です」</strong><br>
                     <strong>12ピッタリのときは「正午です」</strong><br>
@@ -288,7 +315,7 @@ let hour = Math.floor(Math.random() * Math.floor(24))
             </article>
             <article class="message is-info">
                 <div class="message-header">
-                  <p>課題２</p>
+                  <p>課題４</p>
                 </div>
                 <div class="message-body">
                     任意の名前の引数で値を受け取り、<strong>引数が数値なら 50を足し、文字列であれば 任意の文字列を末尾に足した値を 戻り値として返却する</strong>関数test2 を作成してください。足す文字列は自由でOKです。<br>
