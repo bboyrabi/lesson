@@ -129,9 +129,11 @@ obj['member-name'] = 'name';
                 同じ処理が繰り返し行われる場合などに関数を定義しておくと、プログラミングの可読性の向上や、修正などのメンテナンスが容易になります。
             </p>
             <br>
-            <p>
-                JavaScriptの場合、関数には<strong>無名関数</strong>、<strong>名前付き関数</strong>があり、作成した関数は<strong>変数に代入することができます</strong>。
-            </p>
+            <article class="message is-info">
+                <div class="message-body">
+                    JavaScriptの場合、関数には<strong>無名関数</strong>、<strong>名前付き関数</strong>があり、作成した関数は<strong>変数に代入することができます</strong>。
+                </div>
+            </article>
             <br>
             <div>
                 <h4>無名関数 の場合</h4>
@@ -263,6 +265,49 @@ const demo = function() {
 }
 demo();
 console.log( scope ); // global
+            </code></pre>
+        </div>
+        <div>
+            <pre><span>スコープを利用した関数の使い方の例</span><code class="lang-javascript">
+// 例: 変数 count をインクリメントする関数を作成する
+
+// -----------
+// スコープを利用しない場合
+// -----------
+// この count はグローバル変数です
+let count = 0;
+function incrimentCount() {
+    return count++;
+}
+console.log(incrimentCount()); // 0
+console.log(incrimentCount()); // 1
+console.log(incrimentCount()); // 2
+// count を初期化します
+count = 0;
+console.log(incrimentCount()); // 0
+
+
+// -----------
+// スコープをうまく利用した場合
+// -----------
+function closure() {
+    // この count はこの関数が実行された場合に実行されます
+    let count = 0;
+    // 無名関数を 戻り値 として返します
+    return function() {
+        // 無名関数内で count をインクリメントします
+        return count++;
+    }
+}
+
+// 新しく closure を実行し、戻り値である 無名関数を closureDemo に代入します
+let closureDemo = closure();
+console.log(closureDemo()); // 0
+console.log(closureDemo()); // 1
+console.log(closureDemo()); // 2
+// 新しく closure を実行したので count が初期化されています
+closureDemo = closure();
+console.log(closureDemo()); // 0
             </code></pre>
         </div>
     </section>

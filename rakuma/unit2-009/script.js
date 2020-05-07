@@ -78,6 +78,37 @@ const demo = function() {
 demo();
 console.log( scope );
 
+let count = 0;
+function incrimentCount() {
+    return count++;
+}
+console.log(incrimentCount()); // 0
+console.log(incrimentCount()); // 1
+console.log(incrimentCount()); // 2
+// 初期化します
+count = 0;
+console.log(incrimentCount()); // 0
+
+// クロージャー関数
+function closure() {
+    // この count はこの関数が実行された場合に実行されます
+    let count = 0;
+    // 無名関数を 戻り値 として返します
+    return function() {
+        // 無名関数内で count をインクリメントします
+        return count++;
+    }
+}
+
+// 新しく closure を実行し、戻り値である 無名関数を closureDemo に代入します
+let closureDemo = closure();
+console.log(closureDemo()); // 0
+console.log(closureDemo()); // 1
+console.log(closureDemo()); // 2
+// 新しく closure を実行したので count が初期化されています
+closureDemo = closure();
+console.log(closureDemo()); // 0
+
 // 課題１の答え
 let person = {
     name: {
