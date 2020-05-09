@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptの応用その１</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <!--
+        Highlight.js
+        https://github.com/highlightjs/highlight.js
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/agate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        [hidden] {
+            display: none;
+        }
+        #exBox1 {
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-danger">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">JavaScript応用</h1>
+                <div class="subtitle">DOMについて</div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">HTMLやCSSをJavaScriptで操作する</h2>
+            <h3 class="subtitle">
+                JavaScriptを使って、Webページに動きを与えよう
+            </h3>
+            <p>JavaScriptを使用すれば、Webページに<strong>動き</strong>を付けることができます。<br>
+                例えば、ページを閲覧しているユーザーが、<strong>クリックしたら開くメニュー</strong>や<strong>何かをきっかけに開くダイアログ（ポップアップ）</strong>などがあります。
+            </p>
+            <br>
+            <br>
+            例１: 次のボタンを押して試してみてください。（私のプロフィールが表示されます）
+            <br>
+            <br>
+            <div class="example-container">
+                <button class="button is-primary" onclick="onClickExButton1(event);">プロフィールを見る</button>
+                <div id="exBox1" class="box" hidden>
+                    <article class="media">
+                      <div class="media-left">
+                        <figure class="image is-64x64">
+                          <img src="https://avatars0.githubusercontent.com/u/9665307?s=460&u=632319d14cc849669a221e597f992e119bc4d464&v=4" alt="Image">
+                        </figure>
+                      </div>
+                      <div class="media-content">
+                        <div class="content">
+                          <p>
+                            <strong>Nobuyuki Nakano</strong> <small>@bboyrabi</small>
+                            <br>
+                            オンラインプログラミング教室
+                            <a href="https://www.facebook.com/%E3%82%BC%E3%83%AD%E3%81%8B%E3%82%89%E5%A7%8B%E3%82%81%E3%81%A6%E6%A5%BD%E3%81%97%E3%81%8F%E5%AD%A6%E3%81%B9%E3%82%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%B5%E3%83%AD%E3%83%B3-Rakuma-109327710741791/" target="_blank">RAKUMA</a>
+                            のオーナーです。みんなで楽しくプログラミングを学習しましょう😊
+                          </p>
+                        </div>
+                        <nav class="level is-mobile">
+                          <div class="level-left">
+                            <a class="level-item" aria-label="reply">
+                              <span class="icon is-small">
+                                <i class="fas fa-reply" aria-hidden="true"></i>
+                              </span>
+                            </a>
+                            <a class="level-item" aria-label="retweet">
+                              <span class="icon is-small">
+                                <i class="fas fa-retweet" aria-hidden="true"></i>
+                              </span>
+                            </a>
+                            <a class="level-item" aria-label="like">
+                              <span class="icon is-small">
+                                <i class="fas fa-heart" aria-hidden="true"></i>
+                              </span>
+                            </a>
+                          </div>
+                        </nav>
+                      </div>
+                    </article>
+                </div>
+            </div>
+            <br>
+            例２: 入力フォームに「おはよう」と入力して<em>Enter</em>キーを押した場合にポップアップを表示します。<br>
+            <br>
+            <!-- keypress event is deprecated.
+                非推奨だが日本語の変換においてEnterキーコードを取得する必要があるため、採用している.
+                代替案として、formタグ内にinputを記述し、submitイベントで取得する方法があるが、
+                これはinputが複数あるとイベントが発生しない場合があるため、採用する場合は専用のformタグを使用する必要がある.
+             -->
+            <input class="input" type="text" placeholder="おはよう と入力してEnterキーを押してください" onkeypress="onKeypressDemo(event);">
+            <br>
+            <br>
+            <br>
+            <p>
+                このように、今までは <em>console.log</em> で実行結果を確認してきましたが、今回からは実際に画面に動きを与える方法について学習していきます。
+            </p>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">Windowオブジェクトについて</h2>
+            <!-- TODO: CanIUse (fetchのときでいい？) -->
+            <h3 class="subtitle">
+                Windowとはブラウザウィンドウのwindow
+            </h3>
+            <p>
+                window は予め定義されている変数で、それぞれのブラウザの<strong>タブごと</strong>の画面についての情報を保持しています。<br>
+                この window はグローバル変数なので、どこからでも参照することが可能で、<strong>現在の画面がどのサイズで開かれているか</strong>や<strong>現在のページのURL</strong>、また<strong>現在表示されているページのすべてのHTMLやCSS、JavaScriptなどの文章</strong>を持っています。
+            </p>
+            <br>
+            <div>
+                <pre><span>window の例</span><code class="lang-javascript">
+// window をコンソールに表示します
+console.log( window );
+
+// 現在開かれている画面のサイズを表示します
+console.log( '画面の横幅は ' + window.innerWidth + 'px です' );
+console.log( '画面の縦幅は ' + window.innerHeight + 'px です' );
+
+// 現在開かれているページのURLを表示します
+console.log(window.location.href); // URL
+console.log(window.location.port); // ポート番号
+console.log(window.location.protocol); // http や https など
+console.log(window.location.pathname); // プロトコルとポート番号、検索パラメータを省いたURL
+console.log(window.location.search); // 検索パラメータ(?より後の文字列)
+                </code></pre>
+            </div>
+        </div>
+        <br>
+        <article class="message is-info">
+            <div class="message-body">
+              <strong>window は省略できる</strong><br>
+              グローバル変数 window は省略して記述することができます。例えば、<em>window.innerWidth</em> を <em>innerWidth</em> と記述することが可能です。<br>
+              よく使用する <em>console.log</em> も実は window が省略されており、<em>window.console.log</em> が本来の書き方となります。
+            </div>
+        </article>
+        <br>
+        <article class="message is-link">
+            <div class="message-body">
+              より詳しい Windowオブジェクト については <a href="https://developer.mozilla.org/ja/docs/Web/API/Window" target="_blank">Window - Web API | MDN</a>でご確認いただけます。
+            </div>
+        </article>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">Documentオブジェクトについて</h2>
+            <h3 class="subtitle">
+                一番良く使う window.document
+            </h3>
+            <p>
+                Documentオブジェクトとは、window 変数 にある document のことです。<br>
+                この <em>document</em> には<strong>現在表示されているページのすべてのHTMLやCSS、JavaScriptなどの文章</strong>が格納されています。<br>
+                簡単に言うと、いつも作成している <em>index.html</em> の内容全てがここにあります。
+            </p>
+            <br>
+            <div>
+                <pre><span>document の例</span><code class="lang-javascript">
+// document をコンソールに表示します
+console.log( document );
+
+// document 内のリンク(aタグ要素)全てを取得してコンソールに表示します
+console.log( document.links );
+for( let i = 0; i &lt; document.links.length; i++ ) {
+    console.log(document.links[i].href);
+}
+
+// headタグ要素 をコンソールに表示します
+console.log(document.head);
+
+// titleタグ要素内の文字列 をコンソールに表示します
+console.log(document.title);
+// titleタグ要素内の文字列を 変更 します
+document.title = '変更しました';
+console.log(document.title);
+
+// bodyタグ要素 をコンソールに表示します
+console.log(document.body);
+                </code></pre>
+            </div>
+            <br>
+            <p>
+                つまり JavaScript を使って <strong>Webページに動きを与える</strong>ということは、この <strong>document の中身の要素を更新する</strong> ことをいいます。
+            </p>
+            <br>
+            <article class="message is-link">
+                <div class="message-body">
+                    より詳しい Documentオブジェクト については <a href="https://developer.mozilla.org/ja/docs/Web/API/document" target="_blank">Document - Web API | MDN</a>でご確認いただけます。
+                </div>
+            </article>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">DOMの操作について</h2>
+            <h3 class="subtitle">
+                DOM とは Document Object Model
+            </h3>
+            <p>
+                <strong>本来タグ要素である document の中身を JavaScript で扱えるように オブジェクト にします</strong> といったものを <strong>DOM</strong>といいます。<br>
+                DOMを操作することで、タグ要素の更新や作成、削除を行うことが可能になります。
+            </p>
+            <br>
+            <article class="message is-info">
+                <div class="message-body">
+                    HTMLタグには親要素と子要素があり、一番の親 <em>html</em> 以外の要素は必ず何れかの 親要素を持っています。この構造のことを <strong>木構造</strong> といい <strong>DOMツリー</strong> と呼ばれます。<br>
+                    また、この <strong>木</strong> の ひとつひとつの <strong>葉</strong> のことを <strong>ノード（node）</strong>と呼びます。<br>
+                    このDOMツリーのノードに要素を追加したり、あるノードにある要素を取得して更新します。要素のことを <strong>エレメント（element）</strong> と言います。
+                </div>
+            </article>
+            <p>次のコードは新しくDOMツリーに要素を追加する例です。</p>
+            <div>
+                <pre><span>DOM作成 の例</span><code class="lang-javascript">
+// 変数 element と textNode を定義します
+let element, textNode;
+
+// ------------
+// 空の pタグ を DOM に追加します
+// ------------
+// p要素 を 変数element に代入します
+element = document.createElement('p');
+// pタグに id を設定します
+element.id = 'demo1';
+// bodyタグの一番下に p要素 を作成します
+document.body.appendChild( element ); // DOMを更新
+
+// ------------
+// createTextNode でテキストを 追加した pタグ を DOM に追加します
+// ------------
+element = document.createElement('p');
+// createTextNode を使用して テキストを作成します
+textNode = document.createTextNode('&lt;h1&gt;エスケープする&lt;/h1&gt;');
+// pタグ の子要素に textNode を追加します
+element.appendChild( textNode );
+// pタグに class を設定します
+element.className = 'text-blue';
+document.body.appendChild( element ); // DOMを更新
+
+// ------------
+// innerHTML で タグ要素文字列を 追加した pタグ を DOM に追加します
+// ------------
+// innerHtml を使用した場合
+element = document.createElement('p');
+// pタグ の HTML を innerHTML で更新します
+element.innerHTML = '&lt;h1&gt;エスケープする&lt;/h1&gt;';
+// pタグに class を設定します
+element.className = 'text-blue';
+document.body.appendChild( element ); // DOMを更新
+                </code></pre>
+                <br>
+                <br>
+                <p>
+                    次のコードは要素をDOMツリーから取得する例です。
+                </p>
+                <pre><span>DOM取得 の例</span><code class="lang-javascript">
+// id をキーに要素を取得します
+element = document.getElementById('demo1');
+// 取得した要素をコンソールに表示します
+console.log( element );
+// 取得した要素のテキストを更新します
+element.innerText = 'テキストを更新';
+
+// class をキーに要素を配列で取得します
+let elementList = document.getElementsByClassName('text-blue');
+// 取得した要素配列をコンソールに表示します
+console.log( elementList );
+// ２番目（インデックス番号は１）の要素のスタイルを更新します
+for( let i = 0; i &lt; elementList.length; i++ ) {
+    if( i == 1) {
+        elementList[i].style = 'color: red;'; // 文字色を赤色に変更します
+    }
+}
+                </code></pre>
+            </div>
+            <br>
+
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">課題</h2>
+        </div>
+        <article class="message is-info">
+            <div class="message-header">
+              <p>課題１</p>
+            </div>
+            <div class="message-body">
+              現在のページの <strong>URL</strong> をコンソールに出力するプログラムを作成してください。
+            </div>
+          </article>
+          <article class="message is-info">
+            <div class="message-header">
+              <p>課題２</p>
+            </div>
+            <div class="message-body">
+              現在のページの <strong>head内のtitle</strong> を「JavaScriptのDOM操作」に変更するプログラムを作成してください。
+            </div>
+          </article>
+          <article class="message is-info">
+            <div class="message-header">
+              <p>課題３</p>
+            </div>
+            <div class="message-body">
+              bodyタグ要素の子要素に 以下の要素を JavaScriptで追加するプログラムを作成してください。（私の画像が表示されますが、画像のsrcは何でもOKです）
+            </div>
+            <pre><code class="lang-html">
+&lt;div&gt;
+    &lt;img src="https://scontent-itm1-1.xx.fbcdn.net/v/t1.0-9/93258597_109329357408293_6938997864051769344_o.png?_nc_cat=103&_nc_sid=6e5ad9&_nc_oc=AQluLOVdx9JI5pv1w6s_4hXMBxBXi55ydnLJa9d4x8XrMYUCjPB8nf6mwi_g9pE_GPTngFsxHUpA01VcIc8_opnV&_nc_ht=scontent-itm1-1.xx&oh=0ebe9f9ce7987695b9755df925282aa4&oe=5EDC0908" alt="Image"&gt;
+&lt;/div&gt;
+            </code></pre>
+          </article>
+          <article class="message is-info">
+            <div class="message-header">
+              <p>課題４</p>
+            </div>
+            <div class="message-body">
+                selectタグ要素を id で取得し、子要素に option 要素を 追加して表示するプログラムを作成してください。
+              bodyタグ要素の子要素に 以下の要素を JavaScriptで追加するプログラムを作成してください。
+            </div>
+            <pre><code class="lang-html">
+&lt;!-- これは index.html にコピペしてください --&gt;
+&lt;select name="feeling" id="feeling"&gt;
+    &lt;!-- ここにJavaScriptで option を追加します --&gt;
+&lt;/select&gt;
+            </code></pre>
+            <br>
+            <pre><code class="lang-html">
+&lt;!-- JavaScriptで追加する option 要素 --&gt;
+&lt;option value="very good"&gt;Very Good&lt;/option&gt;
+&lt;option value="good"&gt;Good&lt;/option&gt;
+&lt;option value="not good"&gt;Not Good&lt;/option&gt;
+&lt;option value="bad"&gt;Bad&lt;/option&gt;
+            </code></pre>
+            <br>
+            <pre><code class="lang-javascript">
+// 以下の配列をJavaScriptでループさせて、option を作成し、select に追加します
+// option の値配列
+const feelingList = [
+  {
+      value: 'very good',
+      text: 'Very Good'
+  },
+  {
+    value: 'good',
+    text: 'Good'
+  },
+  {
+    value: 'not good',
+    text: 'Not Good'
+  },
+  {
+    value: 'bad',
+    text: 'Bad'
+  }
+];
+            </code></pre>
+        </article>
+    </section>
+    <script>
+        'use strict';
+
+        function onClickExButton1(e) {
+            console.log(e);
+            const box = document.getElementById('exBox1');
+            box.hidden = !box.hidden;
+            e.target.innerText = `プロフィールを${(box.hidden ? '見る' : '隠す')}`;
+            e.target.className = `button ${(box.hidden ? 'is-primary' : 'is-warning')}`;
+        }
+
+        function onKeypressDemo(e) {
+            console.log(e);
+            if( e.key === 'Enter' && e.target.value === 'おはよう') {
+                window.alert('Good morning😋');
+            }
+        }
+    </script>
+</body>
+</html>
