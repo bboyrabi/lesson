@@ -267,18 +267,18 @@ window.onload = function() {
             <p>次の例では、内側の四角をクリックすると外側の<strong>親要素の四角のイベントも実行される</strong>動きを確認できます。</p>
             <div>
                 <div>
-                    <div class="ex-bubbling-box flex-box center-center" onclick="alert('赤色');">
-                        <div class="flex-box center-center" onclick="alert('黃色');">
-                            <div onclick="alert('青色');"></div>
+                    <div class="ex-bubbling-box flex-box center-center" onclick="alert('「赤」色');">
+                        <div class="flex-box center-center" onclick="alert('「黃」色');">
+                            <div onclick="alert('「青」色');"></div>
                         </div>
                     </div>
                 </div>
                 <div>
                     <pre><span>親要素の方向へ伝播する例</span><code class="lang-html">
 &lt;!-- それぞれに onclick イベントを設定します --&gt;
-&lt;div class="..." onclick="alert('赤色');"&gt;
-    &lt;div class="..." onclick="alert('黃色');"&gt;
-        &lt;div onclick="alert('青色');"&gt;&lt;/div&gt;
+&lt;div class="..." onclick="alert('「赤」色');"&gt;
+    &lt;div class="..." onclick="alert('「黃」色');"&gt;
+        &lt;div onclick="alert('「青」色');"&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
                     </code></pre>
@@ -297,18 +297,18 @@ window.onload = function() {
             <p>次の例では、青色の四角をクリックすると黄色のイベントで<strong>伝播を止める動き</strong>を確認できます。</p>
             <div>
                 <div>
-                    <div class="ex-bubbling-box flex-box center-center" onclick="alert('赤色');">
-                        <div class="flex-box center-center" onclick="alert('黃色');event.stopPropagation();">
-                            <div onclick="alert('青色');"></div>
+                    <div class="ex-bubbling-box flex-box center-center" onclick="alert('「赤」色');">
+                        <div class="flex-box center-center" onclick="alert('「黃」色');event.stopPropagation();">
+                            <div onclick="alert('「青」色');"></div>
                         </div>
                     </div>
                 </div>
                 <div>
                     <pre><span>伝播止める例</span><code class="lang-html">
 &lt;!-- 黄色の onclick イベントに 伝播を止める event.stopPropagation(); を追加します --&gt;
-&lt;div class="..." onclick="alert('赤色');"&gt;
-    &lt;div class="..." onclick="alert('黃色');event.stopPropagation();"&gt;
-        &lt;div onclick="alert('青色');"&gt;&lt;/div&gt;
+&lt;div class="..." onclick="alert('「赤」色');"&gt;
+    &lt;div class="..." onclick="alert('「黃」色');event.stopPropagation();"&gt;
+        &lt;div onclick="alert('「青」色');"&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
                     </code></pre>
@@ -320,31 +320,31 @@ window.onload = function() {
                     <strong>イベントの発生元要素とイベントの実行要素</strong><br>
                     <br>
                     Eventオブジェクトの <strong>target</strong> を使用すれば、<strong>イベント発生元の要素</strong> について参照することができ、
-                    <strong>currentTarget（または this）</strong> を使用すれば、<strong>現在実行している要素</strong> について参照することができます。
+                    <strong>currentTarget</strong> を使用すれば、<strong>現在実行している要素</strong> について参照することができます。
                 </div>
             </article>
-            <p>次の例では、Eventオブジェクトの<strong>発生元の要素 target</strong>と<strong>現在実行されている要素 currentTarget(またはthis)</strong>の値を確認できます。</p>
+            <p>次の例では、Eventオブジェクトの<strong>発生元の要素 target</strong>と<strong>現在実行されている要素 currentTarget</strong>の値を確認できます。</p>
             <div>
                 <div>
-                    <div class="ex-bubbling-box flex-box center-center" data-value="赤色" onclick="bubbling(event);">
-                        <div class="flex-box center-center" data-value="黄色" onclick="bubbling(event);">
-                            <div id="inner" data-value="青色" onclick="bubbling(event);"></div>
+                    <div class="ex-bubbling-box flex-box center-center" data-value="「赤」色" onclick="bubbling(event);">
+                        <div class="flex-box center-center" data-value="「黄」色" onclick="bubbling(event);">
+                            <div id="inner" data-value="「青」色" onclick="bubbling(event);"></div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    <pre><span>targetとcurrentTarget(またはthis)の例</span>
+                    <pre><span>target と currentTarget の例</span>
                         <code class="lang-html">
 &lt;!-- 黄色の onclick イベントに 伝播を止める event.stopPropagation(); を追加します --&gt;
-&lt;div class="..." data-value="赤色" onclick="bubbling(event);"&gt;
-    &lt;div class="..." data-value="黄色" onclick="bubbling(event);"&gt;
-        &lt;div data-value="青色" onclick="bubbling(event);"&gt;&lt;/div&gt;
+&lt;div class="..." data-value="「赤」色" onclick="bubbling(event);"&gt;
+    &lt;div class="..." data-value="「黄」色" onclick="bubbling(event);"&gt;
+        &lt;div data-value="「青」色" onclick="bubbling(event);"&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
                         </code>
                         <code class="lang-javascript">
 function bubbling(event) {
-    alert(`target: ${event.target.getAttribute('data-value')}, currentTarget(またはthis): ${event.currentTarget.getAttribute('data-value')}`);
+    alert('target: ' + event.target.getAttribute('data-value') + ', currentTarget: ' + event.currentTarget.getAttribute('data-value'));
 }
                         </code>
                     </pre>
@@ -423,13 +423,13 @@ function bubbling(event) {
         }
 
         function sleep(msec) {
-            return new Promise(function(resolve) {
+            return new Promise(resolve => {
                 setTimeout(resolve, msec)
             });
         }
 
-        function bubbling(event) {
-            alert(`target: ${event.target.getAttribute('data-value')}, currentTarget(またはthis): ${event.currentTarget.getAttribute('data-value')}`);
+        function bubbling(e) {
+            alert(`target: ${e.target.getAttribute('data-value')}, currentTarget: ${e.currentTarget.getAttribute('data-value')}`);
         }
     </script>
 </body>

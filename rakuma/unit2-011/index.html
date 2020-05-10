@@ -23,8 +23,15 @@
     <button id="hideButton">課題２のボタンです</button>
     <div id="hide">押されたら消えます</div>
     <br>
+    <br>
     <!-- 課題３の答え -->
+    <h3>元のやつ</h3>
+    <div data-value="Good morning"
+         onclick="console.log('あいさつ', event.target.getAttribute('data-value'));">
+        ここは親要素<strong>ここは子要素</strong>
+    </div>
     <!-- index.html にコピペして作成してください -->
+    <h3>修正版</h3>
     <div data-value="Good morning"
          onclick="console.log('あいさつ', event.currentTarget.getAttribute('data-value'));">
         ここは親要素<strong>ここは子要素</strong>
