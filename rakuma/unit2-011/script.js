@@ -14,9 +14,12 @@ function _onClickButtonFromListner_2(event) {
 
 window.onload = function() {
     console.log('すべての文章が読み込まれ、DOMツリーが構築されました');
-    let buttonElement = document.getElementById('buttonListner');
-    buttonElement.addEventListener('click', _onClickButtonFromListner_1, false);
-    buttonElement.addEventListener('click', _onClickButtonFromListner_2, false);
+    let buttonHandlerElement = document.getElementById('buttonHandler');
+    buttonHandlerElement.onclick = _onClickButtonFromHandler;
+
+    let buttonListnerElement = document.getElementById('buttonListner');
+    buttonListnerElement.addEventListener('click', _onClickButtonFromListner_1, false);
+    buttonListnerElement.addEventListener('click', _onClickButtonFromListner_2, false);
 
     // 課題２の答え（１）
     let hideButtonElement = document.getElementById('hideButton');

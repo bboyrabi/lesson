@@ -63,7 +63,7 @@
         <div class="container">
             <h2 class="title  is-spaced">イベントリスナー / イベントハンドラ</h2>
             <h3 class="subtitle">
-                イベントとはユーザが行う動作のこと
+                イベントとは、何らかの動作をきっかけに発生するもの
             </h3>
             <p>マウスで <strong>クリック</strong> したとき、スマートフォンで <strong>タップ</strong> したとき、キーボードを <strong>押した</strong> ときなどの、
                 ユーザーの動作をきっかけに JavaScript を実行したい場合があります。<br>
@@ -89,16 +89,16 @@
             <br>
             <article class="message is-link">
                 <div class="message-body">
-                    <small>☆・・・ユーザの動作、◯・・・プログラムするところ</small>
+                    <small>☆・・・動作、◯・・・プログラムするところ</small>
                     <ol>
                         <li>◯ 事前にイベントハンドラ（リスナー）にイベントを登録</li>
                         <li>☆ ユーザがボタンをクリック</li>
                         <li><strong>buttan要素のクリックイベントが動作を開始</strong></li>
-                        <li><strong>buttan要素のクリックイベントに登録されている関数（クリック）を実行</strong></li>
-                        <li>◯ （本来は）関数（クリック）内で送信を実行</li>
+                        <li><strong>buttan要素のクリックイベントに「登録されている関数（クリック）」を実行</strong></li>
+                        <li>◯ 関数（クリック）内で送信を実行</li>
                         <li>◯ 関数（クリック）内でプログレスバーを表示</li>
-                        <li><strong>（本来は）レスポンスを受け取り、レスポンスイベントが動作を開始</strong></li>
-                        <li><strong>レスポンスイベントに登録されている関数（レスポンス）を実行</strong></li>
+                        <li>☆ <strong>レスポンスを受け取り、レスポンスイベントが動作を開始</strong></li>
+                        <li><strong>レスポンスイベントに「登録されている関数（レスポンス）」を実行</strong></li>
                         <li>◯ 関数（レスポンス）内でプログレスバーを非表示</li>
                         <li>◯ 関数（レスポンス）内で通知メッセージを表示</li>
                     </ol>
@@ -106,8 +106,9 @@
             </article>
             <br>
             <p>
-                つまり、<strong>クリックイベント</strong> のイベントハンドラ（リスナー）に、<strong>送信を実行するための関数を登録</strong>し、<br>
-                <strong>レスポンスイベント</strong> のイベントハンドラ（リスナー）に、<strong>メッセージを表示するための関数を登録</strong>しています。
+                つまり、イベントをきっかけに行いたい関数 を 予めイベントハンドラ（リスナー） に登録することで、動的にJavaScript を実行することができます。<br>
+                上記の場合だと、<strong>クリックイベント</strong> のイベントハンドラ（リスナー）に <strong>送信を実行するための関数を登録</strong>し、<br>
+                <strong>レスポンスイベント</strong> のイベントハンドラ（リスナー）に <strong>メッセージを表示するための関数を登録</strong>しています。
             </p>
             <br>
             <article class="message is-info">
@@ -120,21 +121,38 @@
             </article>
             <br>
             <div>
-                <pre><span>イベントハンドラ 登録の例</span>
+                <pre><span>イベントハンドラ 登録の例 その１</span>
+                    <code class="lang-html">
+&lt;!-- buttonタグ要素の クリックイベントハンドラ onclick に 関数を登録します --&gt;
+&lt;!-- 引数にグローバルオブジェクト（windowオブジェクトの）event オブジェクトを渡します --&gt;
+&lt;button onclick="_onClickButtonFromHandler(event);"&gt;クリックミー！&lt;/button&gt;
+                    </code>
                     <code class="lang-javascript">
 // クリックされた時に実行する関数を作成します
 function _onClickButtonFromHandler(event) {
     console.log('handler', event);
 }
                     </code>
+                </pre>
+                <br>
+                <pre><span>イベントハンドラ 登録の例 その２</span>
                     <code class="lang-html">
-&lt;!-- buttonタグ要素の クリックイベントハンドラ onclick に 関数を登録します --&gt;
-&lt;!-- 引数にグローバルオブジェクト（windowオブジェクトの）event オブジェクトを渡します --&gt;
-&lt;button onclick="_onClickButtonFromHandler(event);"&gt;クリックミー！&lt;/button&gt;
+&lt;button id="buttonHandler"&gt;クリックミー！&lt;/button&gt;
+                    </code>
+                    <code class="lang-javascript">
+// クリックされた時に実行する関数を作成します
+function _onClickButtonFromHandler(event) {...}
+// 関数を onclick ハンドラに 登録します
+let buttonHandlerElement = document.getElementById('buttonHandler');
+buttonHandlerElement.onclick = _onClickButtonFromHandler;
                     </code>
                 </pre>
                 <br>
-                <pre><span>イベントリスナー 登録の例</span><code class="lang-javascript">
+                <pre><span>イベントリスナー 登録の例</span>
+                    <code class="lang-html">
+&lt;button id="buttonListner"&gt;ボタンを押して！&lt;/button&gt;
+                    </code>
+                    <code class="lang-javascript">
 // 登録用の 関数その１ を作成します
 function _onClickButtonFromListner_1(event) {
     console.log('listner 1', event);
@@ -155,9 +173,8 @@ window.onload = function() {
     // 要素に 関数その２ を登録します
     buttonElement.addEventListener('click', _onClickButtonFromListner_2, false);
 }
-// 上記はこのように書くこともできます
-// window.addEventListener('load', function(){...});
-                </code></pre>
+                    </code>
+                </pre>
                 <article class="message is-info">
                     <div class="message-body">
                         <strong>addEventListener</strong>の引数について<br>
