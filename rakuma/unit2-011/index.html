@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>JavaScript応用その２</h1>
+    <button onclick="_onClickButtonFromHandler(event);">クリックミー！</button>
+    <br>
+    <br>
+    <button id="buttonListner">ボタンを押して！</button>
+    <br>
+    <br>
+    <!-- 課題１の答え -->
+    <!-- index.html にコピペして作成してください -->
+    <button onclick="_onClickCount(event);">課題１のボタンです</button>
+    <div id="count">0</div>
+    <br>
+    <!-- 課題２の答え -->
+    <!-- index.html にコピペして作成してください -->
+    <button id="hideButton">課題２のボタンです</button>
+    <div id="hide">押されたら消えます</div>
+    <br>
+    <!-- 課題３の答え -->
+    <!-- index.html にコピペして作成してください -->
+    <div data-value="Good morning"
+         onclick="console.log('あいさつ', event.currentTarget.getAttribute('data-value'));">
+        ここは親要素<strong>ここは子要素</strong>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

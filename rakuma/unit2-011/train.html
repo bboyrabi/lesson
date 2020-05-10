@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptの応用その２</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <!--
+        Highlight.js
+        https://github.com/highlightjs/highlight.js
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/agate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        [hidden] {
+            display: none;
+        }
+        ol {
+            margin-left: 2em;
+        }
+        .demo-container > * {
+            margin-top: 24px;
+        }
+        .flex-box {
+            display: flex;
+        }
+        .center-center {
+            justify-content: center;
+            align-items: center;
+        }
+        .ex-bubbling-box {
+            width: 200px;
+            height: 200px;
+            margin: 40px auto;
+            background-color: crimson;
+        }
+        .ex-bubbling-box > div {
+            width: 120px;
+            height: 120px;
+            background-color: gold;
+        }
+        .ex-bubbling-box > div > div {
+            width: 50px;
+            height: 50px;
+            background-color: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">JavaScript応用</h1>
+                <div class="subtitle">イベントについて</div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">イベントリスナー / イベントハンドラ</h2>
+            <h3 class="subtitle">
+                イベントとはユーザが行う動作のこと
+            </h3>
+            <p>マウスで <strong>クリック</strong> したとき、スマートフォンで <strong>タップ</strong> したとき、キーボードを <strong>押した</strong> ときなどの、
+                ユーザーの動作をきっかけに JavaScript を実行したい場合があります。<br>
+                イベントハンドラやイベントリスナーは、<strong>ブラウザの画面で起こりうる動作をきっかけに処理を開始するプログラム</strong>のことです。<br>
+                これらには、<strong>動作が行われた後に処理を行う関数を作成し登録する</strong>ことができます。
+            </p>
+            <br>
+            <br>
+                例: 次のボタンを押すと３秒間プログレスバーを表示し、その後に通知メッセージが表示されます。（何も送信されません）
+            <br>
+            <div class="demo-container">
+                <button class="button is-info" onclick="onClickButtonDemo(event);">送信する</button>
+                <progress id="progressDemo" class="progress is-danger" max="100" hidden></progress>
+                <div id="notificationDemo" class="notification is-warning" hidden>
+                    <button class="delete" onclick="this.parentNode.hidden = true;"></button>
+                    送信しました
+                </div>
+            </div>
+            <br>
+            <p>
+                この場合の処理の流れはこうなります。
+            </p>
+            <br>
+            <article class="message is-link">
+                <div class="message-body">
+                    <small>☆・・・ユーザの動作、◯・・・プログラムするところ</small>
+                    <ol>
+                        <li>◯ 事前にイベントハンドラ（リスナー）にイベントを登録</li>
+                        <li>☆ ユーザがボタンをクリック</li>
+                        <li><strong>buttan要素のクリックイベントが動作を開始</strong></li>
+                        <li><strong>buttan要素のクリックイベントに登録されている関数（クリック）を実行</strong></li>
+                        <li>◯ （本来は）関数（クリック）内で送信を実行</li>
+                        <li>◯ 関数（クリック）内でプログレスバーを表示</li>
+                        <li><strong>（本来は）レスポンスを受け取り、レスポンスイベントが動作を開始</strong></li>
+                        <li><strong>レスポンスイベントに登録されている関数（レスポンス）を実行</strong></li>
+                        <li>◯ 関数（レスポンス）内でプログレスバーを非表示</li>
+                        <li>◯ 関数（レスポンス）内で通知メッセージを表示</li>
+                    </ol>
+                </div>
+            </article>
+            <br>
+            <p>
+                つまり、<strong>クリックイベント</strong> のイベントハンドラ（リスナー）に、<strong>送信を実行するための関数を登録</strong>し、<br>
+                <strong>レスポンスイベント</strong> のイベントハンドラ（リスナー）に、<strong>メッセージを表示するための関数を登録</strong>しています。
+            </p>
+            <br>
+            <article class="message is-info">
+                <div class="message-body">
+                    <strong>イベントハンドラとイベントリスナーの違い</strong><br>
+                    <br>
+                    <strong>イベントハンドラ</strong>・・・イベントに<strong>一つだけ</strong>関数を登録することができます。<br>
+                    <strong>イベントリスナー</strong>・・・イベントに<strong>複数の</strong>関数を登録することができます。
+                </div>
+            </article>
+            <br>
+            <div>
+                <pre><span>イベントハンドラ 登録の例</span>
+                    <code class="lang-javascript">
+// クリックされた時に実行する関数を作成します
+function _onClickButtonFromHandler(event) {
+    console.log('handler', event);
+}
+                    </code>
+                    <code class="lang-html">
+&lt;!-- buttonタグ要素の クリックイベントハンドラ onclick に 関数を登録します --&gt;
+&lt;!-- 引数にグローバルオブジェクト（windowオブジェクトの）event オブジェクトを渡します --&gt;
+&lt;button onclick="_onClickButtonFromHandler(event);"&gt;クリックミー！&lt;/button&gt;
+                    </code>
+                </pre>
+                <br>
+                <pre><span>イベントリスナー 登録の例</span><code class="lang-javascript">
+// 登録用の 関数その１ を作成します
+function _onClickButtonFromListner_1(event) {
+    console.log('listner 1', event);
+}
+
+// 登録用の 関数その２ を作成します
+function _onClickButtonFromListner_2(event) {
+    console.log('listner 2', event);
+}
+
+// DOMの準備が完了した場合に呼び出される window.onload に関数を登録します
+window.onload = function() {
+    console.log('すべての文章が読み込まれ、DOMツリーが構築されました');
+    // イベントリスナーを登録する対象となる要素を取得します
+    let buttonElement = document.getElementById('buttonListner');
+    // 要素に 関数その１ を登録します
+    buttonElement.addEventListener('click', _onClickButtonFromListner_1, false);
+    // 要素に 関数その２ を登録します
+    buttonElement.addEventListener('click', _onClickButtonFromListner_2, false);
+}
+// 上記はこのように書くこともできます
+// window.addEventListener('load', function(){...});
+                </code></pre>
+                <article class="message is-info">
+                    <div class="message-body">
+                        <strong>addEventListener</strong>の引数について<br>
+                        <br>
+                        <strong>第１引数</strong>・・・どのイベントをきっかけにするか、イベントの種類を渡します。<br>
+                        <strong>第２引数</strong>・・・登録する関数を設定します。*実行してはいけません → ✕ _test()、◯ _test<br>
+                        <strong>第３引数</strong>・・・親子（要素）で同一のイベントを登録していた場合の、イベントの発生順序です。*通常は false でOKです<br>
+                        <br>
+                        より詳しい <strong>addEventListener</strong> については <a href="https://developer.mozilla.org/ja/docs/Web/API/EventTarget/addEventListener" target="_blank">EventTarget.addEventListener() - Web API | MDN</a> でご確認いただけます。
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">イベントの種類</h2>
+            <h3 class="subtitle">
+                いろんなイベントがあります
+            </h3>
+            <p>イベントには、<strong>ユーザーの動作をきっかけに発生するイベント</strong>や、<strong>ブラウザ自身が何らかの結果を元に発生するイベント</strong>など、多くの種類があります。<br>
+                ここでは代表的ないくつかイベントをご紹介します。
+            </p>
+            <br>
+            <div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>イベント名</th>
+                        <th>種類</th>
+                        <th>いつ発生するか</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event" target="_blank"　rel="noopener noreferrer">keydown</a></td>
+                            <td>キーボード</td>
+                            <td>任意のキーが押されたとき</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/keyup" target="_blank" rel="noopener noreferrer">keyup</a></td>
+                            <td>キーボード</td>
+                            <td>任意のキーが (押された状態から) 解放されるとき</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/click" target="_blank" rel="noopener noreferrer">click</a></td>
+                            <td>マウス</td>
+                            <td>タグ要素内でクリックして離された時</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/select" target="_blank" rel="noopener noreferrer">select</a></td>
+                            <td>マウス</td>
+                            <td>テキストが選択されている時</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/submit" target="_blank" rel="noopener noreferrer">submit</a></td>
+                            <td>フォーム</td>
+                            <td>サブミットボタン（送信するボタンなど）が押されたとき</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/copy" target="_blank" rel="noopener noreferrer">copy</a></td>
+                            <td>クリップボード</td>
+                            <td>選択範囲がクリップボードにコピーされたとき</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/paste" target="_blank" rel="noopener noreferrer">paste</a></td>
+                            <td>クリップボード</td>
+                            <td>クリップボードからアイテムが貼り付けられたとき</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/resize" target="_blank" rel="noopener noreferrer">resize</a></td>
+                            <td>画面（ビュー）</td>
+                            <td>画面サイズが変更されたとき</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/scroll" target="_blank" rel="noopener noreferrer">scroll</a></td>
+                            <td>画面（ビュー）</td>
+                            <td>画面がスクロールされた時</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events/load" target="_blank" rel="noopener noreferrer">load</a></td>
+                            <td>リソース</td>
+                            <td>リソースとそれに依存するリソースのロード（読み込み）が完了したとき</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <article class="message is-info">
+                <div class="message-body">
+                    より詳しい <strong>イベントの種類</strong> については <a href="https://developer.mozilla.org/ja/docs/Web/Events" target="_blank">イベントリファレンス | MDN</a> でご確認いただけます。
+                </div>
+            </article>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">イベントの伝播</h2>
+            <h3 class="subtitle">
+                伝播とは、伝わり広がって行くこと
+            </h3>
+            <p>ある要素がクリックされた場合のクリックイベントは、その要素のハンドラ（リスナー）に登録されている関数を実行します。<br>
+                しかし、これで終わりではなく、イベントはその親要素へ、またその親要素へと伝播します。<br>
+                これは、<strong>「子要素がクリックされた」は、つまり「親要素もクリックされた」</strong>ということになると考えれば分かりやすいと思います。
+            </p>
+            <br>
+            <p>次の例では、内側の四角をクリックすると外側の<strong>親要素の四角のイベントも実行される</strong>動きを確認できます。</p>
+            <div>
+                <div>
+                    <div class="ex-bubbling-box flex-box center-center" onclick="alert('赤色');">
+                        <div class="flex-box center-center" onclick="alert('黃色');">
+                            <div onclick="alert('青色');"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <pre><span>親要素の方向へ伝播する例</span><code class="lang-html">
+&lt;!-- それぞれに onclick イベントを設定します --&gt;
+&lt;div class="..." onclick="alert('赤色');"&gt;
+    &lt;div class="..." onclick="alert('黃色');"&gt;
+        &lt;div onclick="alert('青色');"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </code></pre>
+                </div>
+            </div>
+            <br>
+            <article class="message is-info">
+                <div class="message-body">
+                    <strong>伝播を止める</strong><br>
+                    <br>
+                    Eventオブジェクトの stopPropagation関数 を実行することで、親要素への伝播を止めることができます。<br>
+                    もし同じ要素のイベントリスナーに複数のイベントが登録されている場合は、一つのイベントから他のイベントの伝播を止めることはできません。<br>
+                    また、<strong>必要な場合以外は伝播はなるべく止めない</strong>でください。他の箇所に影響が出る場合があります。
+                </div>
+            </article>
+            <p>次の例では、青色の四角をクリックすると黄色のイベントで<strong>伝播を止める動き</strong>を確認できます。</p>
+            <div>
+                <div>
+                    <div class="ex-bubbling-box flex-box center-center" onclick="alert('赤色');">
+                        <div class="flex-box center-center" onclick="alert('黃色');event.stopPropagation();">
+                            <div onclick="alert('青色');"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <pre><span>伝播止める例</span><code class="lang-html">
+&lt;!-- 黄色の onclick イベントに 伝播を止める event.stopPropagation(); を追加します --&gt;
+&lt;div class="..." onclick="alert('赤色');"&gt;
+    &lt;div class="..." onclick="alert('黃色');event.stopPropagation();"&gt;
+        &lt;div onclick="alert('青色');"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </code></pre>
+                </div>
+            </div>
+            <br>
+            <article class="message is-info">
+                <div class="message-body">
+                    <strong>イベントの発生元要素とイベントの実行要素</strong><br>
+                    <br>
+                    Eventオブジェクトの <strong>target</strong> を使用すれば、<strong>イベント発生元の要素</strong> について参照することができ、
+                    <strong>currentTarget（または this）</strong> を使用すれば、<strong>現在実行している要素</strong> について参照することができます。
+                </div>
+            </article>
+            <p>次の例では、Eventオブジェクトの<strong>発生元の要素 target</strong>と<strong>現在実行されている要素 currentTarget(またはthis)</strong>の値を確認できます。</p>
+            <div>
+                <div>
+                    <div class="ex-bubbling-box flex-box center-center" data-value="赤色" onclick="bubbling(event);">
+                        <div class="flex-box center-center" data-value="黄色" onclick="bubbling(event);">
+                            <div id="inner" data-value="青色" onclick="bubbling(event);"></div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <pre><span>targetとcurrentTarget(またはthis)の例</span>
+                        <code class="lang-html">
+&lt;!-- 黄色の onclick イベントに 伝播を止める event.stopPropagation(); を追加します --&gt;
+&lt;div class="..." data-value="赤色" onclick="bubbling(event);"&gt;
+    &lt;div class="..." data-value="黄色" onclick="bubbling(event);"&gt;
+        &lt;div data-value="青色" onclick="bubbling(event);"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                        </code>
+                        <code class="lang-javascript">
+function bubbling(event) {
+    alert(`target: ${event.target.getAttribute('data-value')}, currentTarget(またはthis): ${event.currentTarget.getAttribute('data-value')}`);
+}
+                        </code>
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <h2 class="title  is-spaced">課題</h2>
+        </div>
+        <article class="message is-info">
+            <div class="message-header">
+              <p>課題１</p>
+            </div>
+            <div class="message-body">
+              「課題１のボタンです」ボタンを押すと、id="count" の値 0 を１ずつ増やす<strong>イベントハンドラを作成</strong>して、実行するプログラムを作成してください。
+            </div>
+            <pre><code class="lang-html">
+&lt;!-- index.html にコピペして作成してください --&gt;
+&lt;button&gt;課題１のボタンです&lt;/button&gt;
+&lt;div id="count"&gt;0&lt;/div&gt;
+                </code></pre>
+        </article>
+        <article class="message is-info">
+            <div class="message-header">
+              <p>課題２</p>
+            </div>
+            <div class="message-body">
+              「課題２のボタンです」ボタンを押すと、id="hide" を非表示にする<strong>イベントリスナーを作成</strong>して、実行するプログラムを作成してください。
+            </div>
+            <pre><code class="lang-html">
+&lt;!-- index.html にコピペして作成してください --&gt;
+&lt;button&gt;課題２のボタンです&lt;/button&gt;
+&lt;div id="hide"&gt;押されたら消えます&lt;/div&gt;
+                </code></pre>
+        </article>
+        <article class="message is-info">
+            <div class="message-header">
+              <p>課題３</p>
+            </div>
+            <div class="message-body">
+              以下のコードは、親要素のdivタグ がクリックされたら <em>data-value</em> に設定されている 「Good morning」をコンソールに出力するプログラムです。<br>
+              しかし、<strong>子要素のstrongタグ がクリックされた場合</strong> は、この値を取得することができません。<br>
+              この バグ を修正し、子要素をクリックした場合でも、あいさつを表示することが出来るように、修正してください。
+            </div>
+            <pre><code class="lang-html">
+&lt;!-- index.html にコピペして作成してください --&gt;
+&lt;div data-value="Good morning"
+        onclick="console.log('あいさつ', event.target.getAttribute('data-value'));"&gt;
+    ここは親要素&lt;strong&gt;ここは子要素&lt;/strong&gt;
+&lt;/div&gt;
+                </code></pre>
+        </article>
+    </section>
+    <script>
+        async function onClickButtonDemo(e) {
+            console.log(e);
+            // Notification を隠します
+            let notificationDemoElement = document.getElementById('notificationDemo');
+            notificationDemoElement.hidden = true;
+
+            // Progress を表示します
+            let progressDemoEle = document.getElementById('progressDemo');
+            progressDemoEle.hidden = false;
+
+            // 待機します
+            console.time('sleep');
+            await sleep(3000);
+            console.timeEnd('sleep');
+
+            // Progress を隠します
+            progressDemoEle.hidden = true;
+            // Notification を表示します
+            notificationDemoElement.hidden = false;
+        }
+
+        function sleep(msec) {
+            return new Promise(function(resolve) {
+                setTimeout(resolve, msec)
+            });
+        }
+
+        function bubbling(event) {
+            alert(`target: ${event.target.getAttribute('data-value')}, currentTarget(またはthis): ${event.currentTarget.getAttribute('data-value')}`);
+        }
+    </script>
+</body>
+</html>
