@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menuバーデモ</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        header,
+        nav {
+            box-sizing: border-box;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: inherit;
+            border: none;
+        }
+
+        /* Flex layout */
+        .flex {
+            display: flex;
+        }
+
+        .flex-center {
+            align-items: center;
+        }
+
+        .flex-between {
+            justify-content: space-between;
+        }
+
+        .flex-1 {
+            -ms-flex: 1 1 0.000000001px;
+            -webkit-flex: 1;
+            flex: 1;
+            -webkit-flex-basis: 0.000000001px;
+            flex-basis: 0.000000001px;
+        }
+
+        /* Header */
+        header {
+            width: 100%;
+            height: 50px;
+            background-color: hotpink;
+            padding: 0 8px;
+        }
+
+        header div {
+            width: 100%;
+        }
+
+        header div img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Nav */
+        nav {
+            width: 100%;
+            height: 300px;
+            background-color: khaki;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 0 12px;
+            transition: top ease .3s .3s, transform ease .3s;
+        }
+
+        nav.hidden {
+            top: -300px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav button {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <header class="flex flex-center">
+        <div class="flex flex-between ">
+            <img src="https://picsum.photos/200" alt="デモ画像です">
+            <button onclick="_onClickTopMenuButton(event);">メニュー</button>
+        </div>
+    </header>
+    <nav id="topMenu" class="flex hidden">
+        <ul class="flex-1">
+            <li>アイテム１</li>
+            <li>アイテム２</li>
+            <li>アイテム３</li>
+            <li>アイテム４</li>
+        </ul>
+        <button onclick="_onClickTopMenuHideButton(event);">✕</button>
+    </nav>
+
+    <script>
+        function _onClickTopMenuButton(e) {
+            switchTopMenu();
+        }
+
+        function _onClickTopMenuHideButton(e) {
+            switchTopMenu();
+        }
+
+        function switchTopMenu() {
+            const topMenu = document.getElementById('topMenu');
+            const isExist = topMenu.className.search('hidden') !== -1;
+            const defaultCSS = 'flex'
+            topMenu.className = isExist ? defaultCSS : `${defaultCSS} hidden`;
+        }
+    </script>
+</body>
+</html>

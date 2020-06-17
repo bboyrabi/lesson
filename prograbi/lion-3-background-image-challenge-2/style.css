@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-vertical {
+    flex-direction: column;
+}
+
+.flex-center {
+    align-items: center;
+}
+
+.flex-center-justify {
+    justify-content: center;
+}
+
+header {
+    height: 100vh;
+    width: 100%;
+}
+
+header .image-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: #fff176;
+    /* Position */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+header .image-gradient {
+    position: absolute;
+    background-image: linear-gradient(to bottom, rgba(255, 152, 0, 0.7) 0%, rgba(33, 33, 33, 0.7) 100%);
+    height: 100%;
+    width: 100%;
+    /* Position */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+}
+
+header .title-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+header .title-wrapper h1 {
+    font-family: serif;
+    font-size: 62px;
+    color: #fff;
+    font-weight: bold;
+}
+
+header .title-wrapper .button-box button {
+    min-width: 120px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #ff1744;
+    color: #fff;
+}
+
+header .title-wrapper .button-box button:hover {
+    background-color: #d50000;
+    font-weight: bold;
+}
+
+header .title-wrapper .button-box a:first-child button {
+    margin-right: 8px;
+    background-color: #2962ff;
+    color: #fff;
+}
+
+header .title-wrapper .button-box a:first-child button:hover {
+    background-color: #304ffe;
+}

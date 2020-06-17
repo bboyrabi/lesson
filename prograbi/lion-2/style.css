@@ -1,0 +1,9 @@
+.greeting {
+    font-size: 32px;
+}
+.japanese {
+    color: green;
+}
+.greeting .japanese p {
+    color: green;
+}
