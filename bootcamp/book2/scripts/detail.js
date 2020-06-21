@@ -24,8 +24,6 @@ function _idChanged(id) {
  * fetchで取得したitemでBookクラスをインスタンス化し、BookのappendInnerHtml()を使って表示する.
  */
 function _itemChanged(item) {
-    // 書き込む先の親要素を取得する.
-    const element = document.getElementById('detailContainer');
     const book = new Book(item);
 
     document.title = book.getTitle() + ' ' ; document.title;
