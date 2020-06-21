@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            min-width: 100px;
+            min-height: 100px;
+            background-color: greenyellow;
+            border: solid 1px #000;
+            margin: 4px;
+        }
+        .flex {
+            display: flex;
+        }
+        .flex-center {
+            align-items: center;
+        }
+        .flex-center-justified {
+            justify-content: center;
+        }
+        .flex-equal-justified {
+            -ms-flex-pack: justify; /* IE */
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <ul class="flex flex-equal-justified">
+        <li class="flex flex-center flex-center-justified">1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <div>あいうえお</div>
+</body>
+</html>
