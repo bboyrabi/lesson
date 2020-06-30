@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>はじめてのJavaScript</title>
+</head>
+
+<body>
+    <h1>はじめてのJavaScript</h1>
+
+    <script>
+        'use strict';
+
+        // 課題１
+        // 0以上100未満の数値をランダムでrに代入する
+        let r = Math.floor(Math.random() * Math.floor(100));
+        let randomResult;
+        if (r >= 50) {
+            randomResult = '以上';
+        } else {
+            randomResult = '未満';
+        }
+        console.log(r + 'の数値は50' + randomResult + 'です');
+
+        // 課題２
+        // 0以上20未満の数値をランダムでxに代入する
+        let personsAge = Math.floor(Math.random() * Math.floor(20));
+        let personStatus;
+        if (personsAge >= 0 && personsAge < 6) {
+            personStatus = '未就学児';
+        } else if (personsAge <= 12) {
+            personStatus = '小学生';
+        } else if (personsAge <= 15) {
+            personStatus = '中学生';
+        } else {
+            personStatus = '義務教育は終了しました';
+        }
+        console.log('[' + personsAge + '歳]: ' + personStatus)
+
+        // 課題３
+        // weather に '晴れ', '曇り', '雨', '台風' のいずれかをランダムで代入する
+        const weathers = ['晴れ', '曇り', '雨', '台風'];
+        const weather = weathers[Math.floor(Math.random() * Math.floor(4))];
+        let sentence;
+        switch (weather) {
+            case '晴れ':
+                sentence = '今日は天気がいいですね。';
+                break;
+            case '曇り':
+                sentence = '明日は雨が降るかもしれません。';
+                break;
+            case '雨':
+                sentence = '雨の音に癒やされますね。';
+                break;
+            default:
+                sentence = '天気に注意してください。';
+        }
+        console.log(sentence);
+
+
+    </script>
+
+    <!-- <script src="./script.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レスポンシブデザイン</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            background-color: #f48fb1;  /* 分かりやすいように背景色を設定 */
+        }
+
+        nav, aside {
+            background-color: #a7ffeb;  /* 分かりやすいように背景色を設定 */
+        }
+
+        main {
+            background-color: #ffeb3b;  /* 分かりやすいように背景色を設定 */
+        }
+
+        header {
+            flex-basis: 50px;
+        }
+
+        nav, aside {
+            flex-basis: 100px;
+        }
+
+        footer {
+            flex-basis: 100px;
+        }
+
+        /* Flex */
+        .flex {
+            display: -ms-flexbox; /* IE */
+            display: flex;
+        }
+
+        .flex-horizontal {
+            -ms-flex-direction: row; /* IE */
+            flex-direction: row;
+        }
+        
+        .flex-vertical {
+            -ms-flex-direction: column; /* IE */
+            flex-direction: column;
+        }
+
+        .flex-equal-justified {
+            -ms-flex-pack: justify; /* IE */
+            justify-content: space-between;
+        }
+
+        .flex-1 {
+            -ms-flex: 1 1 0.000000001px; /* IE */
+            flex: 1;
+            flex-basis: 0.000000001px; /* IE */
+        }
+
+        /* アイテムの表示順序 */
+        .order-1 {
+            -ms-flex-order: 1;
+            order: 1;
+        }
+
+        ul {
+            display: none!important;
+            list-style: none;
+            padding: 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        h1, ul {
+            color: #fff;
+        }
+
+        ul li {
+            margin-left: 8px;
+        }
+
+        @media screen and (min-width: 550px) {
+            nav, aside {
+                flex-basis: 200px;
+            }
+
+            button {
+                display: none;
+            }
+
+            ul {
+                display: flex!important;
+            }
+
+            #mainContainer {
+                -ms-flex-direction: row; /* IE */
+                flex-direction: row;
+            }
+
+            #mainContainer nav {
+                -ms-flex-order: 0; /* IE */
+                order: 0;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-vertical">
+    <header class="flex flex-equal-justified">
+        <h1>タイトル</h1>
+        <button>ボタン</button>
+        <ul class="flex flex-horizontal">
+            <li>リンク</li>
+            <li>リンク</li>
+            <li>リンク</li>
+            <li>リンク</li>
+        </ul>
+    </header>
+    <div id="mainContainer" class="flex flex-vertical flex-1">
+        <nav class="order-1">ナビゲーション</nav>
+        <main class="flex-1 order-2">メインコンテンツエリア</main>
+        <aside>広告エリア</aside>
+    </div>
+    <footer>フッター</footer>
+</body>
+</html>
