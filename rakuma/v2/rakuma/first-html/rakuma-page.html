@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .text-bold {
+            font-weight: bold;
+        }
+
+        #morning {
+            font-size: 23px;
+            color: green;
+        }
+
+        .text-red {
+            color: red;
+        }
+
+        [data-lang="en"] {
+            color: purple;
+        }
+
+        a:hover {
+            color: orange;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .parent > p {
+            font-size: 33px;
+        }
+
+        .parent p {
+            font-weight: 100;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rakumaのページです</h1>
+    
+    <div class="parent">
+        <p id="morning" class="text-bold text-red">朝の挨拶はおはようです。</p>
+        <p data-lang="ja" class="text-bold">昼の挨拶はこんにちはです。</p>
+        <p data-lang="en" class="text-bold">Good evening</p>
+        <div>
+            <p>孫です</p>
+        </div>
+    </div>
+
+    <a href="./index.html">トップページ</a>
+</body>
+</html>
