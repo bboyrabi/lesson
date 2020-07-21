@@ -52,8 +52,8 @@ function viewUsers(jsObject) {
  * レスポンスJSオブジェクトを 関数viewUsers に渡す.
  */
 function fecthUserReq() {
-    fetch('https://www.googleapis.com/books/v1/volumes?q=キングダム', { method: 'GET' })   // リクエスト先のURL, リクエスト方法などのオプション
+    fetch('https://reqres.in/api/users?page=2', { method: 'GET' })   // リクエスト先のURL, リクエスト方法などのオプション
         .then(response => response.json())        // レスポンス結果(JSON)を JSオブジェクト に変更します
-        .then(jsObject => console.log(jsObject))          // jsObjectを コンソールに出力します
+        .then(jsObject => viewUsers(jsObject))          // jsObjectを コンソールに出力します
         .catch(error => console.error('error:', error));  // エラーの場合は コンソールに出力します
 }
