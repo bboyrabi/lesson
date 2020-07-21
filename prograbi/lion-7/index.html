@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript基礎２</title>
+</head>
+
+<body>
+    <h1>JavaScript基礎２</h1>
+
+    <script>
+        'use strict';
+        let fruits = ['りんご', 'ばなな', 'なし'];
+
+        let sentence = '';
+        for(let i = 0; i < fruits.length; i++) {
+
+            let comma = '、';
+            if(i === fruits.length - 1) {
+                comma = '';
+            }
+
+            sentence += fruits[i] + comma;
+        }
+
+        console.log(sentence);
+
+        let dogFriend = {
+            name: 'ジョン',
+            age: 4,
+            food: []
+        };
+
+        let dog = {
+            name: 'リチャード',
+            age: 2,
+            food: fruits,
+            friend: dogFriend,
+            viewName: () => console.log(dog.name)
+        };
+
+        // ------------------------------------------
+        // 関数
+        // ------------------------------------------
+        // function viewDogName(dogObj) {
+        //     console.log(dogObj.name);
+        // }
+
+        // viewDogName(dog);
+
+        dog.viewName();
+
+        
+        // let fruits = ['りんご', 'ばなな', 'なし'];
+        function putFirstFruit(fruits) {
+            return fruits[0];
+        }
+
+        let firstFruits = putFirstFruit(fruits);
+        console.log(firstFruits);
+
+
+        function searchFruitsIndexNoBy(name = 'もも', list = fruits) {
+            for(let i = 0; i < list.length; i++) {
+                if(list[i] === name) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        let resultIndexNo = searchFruitsIndexNoBy('もも', fruits);
+        console.log(resultIndexNo);
+
+    </script>
+</body>
+
+</html>

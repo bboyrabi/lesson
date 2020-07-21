@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web API</title>
+</head>
+
+<body>
+
+    <form action="./demo.html" method="GET">
+        <label for="query">検索クエリ</label>
+        <input id="query" type="text" name="query">
+    </form>
+
+    <br>
+    <br>
+    <br>
+    
+    <div id="usersList"></div>
+    <button onclick="_onClickAjaxReqButton(event)">Ajax リクエスト</button>
+    <button onclick="_onClickFetchReqButton(event)">Fetch リクエスト</button>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
