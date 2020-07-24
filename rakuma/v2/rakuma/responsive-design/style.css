@@ -1,0 +1,84 @@
+body {
+    min-height: 100vh;  /* 高さの最小を画面いっぱいに設定 */
+    margin: 0;  /* ブラウザのデフォルトのスタイルを解除 */
+}
+
+header, footer {
+    background-color: #f48fb1;  /* 分かりやすいように背景色を設定 */
+}
+
+nav {
+    background-color: #a7ffeb;  /* 分かりやすいように背景色を設定 */
+}
+
+aside {
+    background-color: #69f0ae; /* 分かりやすいように背景色を設定 */
+}
+
+main {
+    background-color: #ffeb3b;  /* 分かりやすいように背景色を設定 */
+}
+
+header {
+    flex-basis: 50px;  /* flex-basis（初期値）を指定 */
+}
+
+nav, aside {
+    flex-basis: 100px;  /* flex-basis（初期値）を指定 */
+}
+
+footer {
+    flex-basis: 100px;  /* flex-basis（初期値）を指定 */
+}
+
+/* Flex Layout */
+.flex {
+    display: -ms-flexbox; /* IE */
+    display: flex;
+}
+
+.flex-vertical {
+    -ms-flex-direction: column; /* IE */
+    flex-direction: column;
+}
+
+.flex-1 {
+    -ms-flex: 1 1 0.000000001px; /* IE */
+    flex: 1;
+    flex-basis: 0.000000001px; /* IE */
+}
+
+/* アイテムの表示順序 */
+.order-1 {
+    -ms-flex-order: 1;
+    order: 1;
+}
+
+@media screen and (min-width: 560px) {
+    .content-body {
+        /* Flexで横並び */
+        -ms-flex-direction: row; /* IE */
+        flex-direction: row;
+        -ms-flex-wrap: wrap; /* IE */
+        flex-wrap: wrap;
+    }
+
+    .content-body nav {
+        flex-basis: 200px;
+        /* アイテムの表示順序 */
+        -ms-flex-order: -1;
+        order: -1;
+    }
+
+    .content-body aside {
+        flex-basis: 100%;
+    }
+}
+
+/* 画面サイズの横幅が960px以上である場合 */
+@media screen and (min-width: 960px) {
+    .content-body nav,
+    .content-body aside {
+        flex-basis: 200px;  /* flex-basis（初期値）を指定 */
+    }
+}

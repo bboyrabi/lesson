@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+        header {
+            flex-basis: 50px; /* 初期値を設定 */
+        }
+
+        .content-body nav, 
+        .content-body aside {
+            flex-basis: 100px;
+        }
+
+        footer {
+            flex-basis: 100px;
+        }
+
+        @media (min-width: 992px) {
+            .content-body nav, 
+            .content-body aside {
+                flex-basis: 200px;
+            }   
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header class="bg-primary">ヘッダー</header>
+    <div class="content-body d-flex flex-column flex-lg-row flex-grow-1">
+        <main class="order-1 order-lg-2 flex-grow-1 bg-light">メインコンテンツエリア</main>
+        <nav class="order-3 order-lg-1 bg-success">ナビゲーション</nav>
+        <aside class="order-2 bg-warning">広告エリア</aside>
+    </div>
+    <footer class="bg-primary">フッター</footer>
+</body>
+
+</html>
