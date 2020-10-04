@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>記事編集用メモ</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <!--
+        Highlight.js
+        https://github.com/highlightjs/highlight.js
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/agate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <!-- and it's easy to individually load additional languages -->
+    <script charset="UTF-8"
+        src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/javascript.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+    <!-- 
+        コードを記事に設定する場合、
+        Elementorの「ウィジェット - 一般 - HTML」を使用します。
+        HTML内に、以下のコードを貼り付けてください。
+        貼り付け部分EX: 
+        
+        ■HTML
+        <div>
+            <pre class="wp-block-code"><code class="lang-html">
+                &lt;!DOCTYPE html&gt;
+            </code></pre>
+        </div>
+        
+        ■CSS
+        <div>
+            <pre class="wp-block-code"><code class="lang-css">
+@import url('tablet-style.css') screen and (min-width: 560px);
+            </code></pre>
+        </div>
+
+        ■手順
+        １．言語に合わせて codeタグのclassを変更してください。
+            lang-html, lang-javascript
+            使用可能なクラス一覧: https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
+        ２．htmlタグ（主に < ）をエスケープする
+            < は開始記号になるため、そのままでは使用できず、&lt; に変更する必要があります。
+            一括エスケープ: https://lab.syncer.jp/Tool/HTML-Escape/
+        ３．コードはVS Code で編集し、インデントに注意してください。
+        ４．ElementorのHTMLウィジェットにコピーします。
+     -->
+     <div>
+        <pre class="wp-block-code">
+データ型 配列名[] = 初期化
+        </pre>
+    </div>
+    <div>
+        <pre class="wp-block-code"><code class="lang-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script src=&quot;./dist/hello.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+    </div>
+    <div>
+        <pre class="wp-block-code"><code class="lang-javascript">
+class User {
+private _loginId: string = '';
+
+constructor(public person: Person, loginId: string) {
+this.person = person;
+this._loginId = loginId;
+}
+
+get loginId() {
+return this._loginId;
+}
+
+greeting() {
+console.log(`Hello, ${this.person.gender === 'male' ? 'Mr.' : 'Ms.'}${this.person.name}`);
+}
+}
+        </code></pre>
+    </div>
+
+    <div>
+        <pre class="wp-block-code"><code class="lang-css">
+@import url('tablet-style.css') screen and (min-width: 560px);
+        </code></pre>
+    </div>
+
+    <div>
+        <pre class="wp-block-code"><code class="lang-bash">
+$ npm install --save tslib
+        </code></pre>
+    </div>
+    <div>
+        <pre class="wp-block-code"><code class="lang-plaintext">
+.idea
+/build/*
+!/build/package.json
+!/build/package-lock.json
+/node_modules/*
+/web_modules/*
+yarn-error.log
+        </code></pre>
+    </div>
+    <div>
+        <pre class="wp-block-code"><code class="lang-json">
+"dependencies": {
+"tslib": "^2.0.1"
+}
+        </code></pre>
+    </div>
+    <div>
+        <pre class="wp-block-code"><code class="lang-java">
+// 二次元配列の要素をインデックス番号の昇順に出力する
+for (int i = 0; i &lt; board.length; i++) {
+for (int j = 0; j &lt; board.length; j++) {
+System.out.println(board[i][j]);
+}
+}
+        </code></pre>
+    </div>
+    <!-- end:  -->
+
+    <section class="section">
+        <div class="container">
+            <!-- class="wp-block-code" -->
+
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ステータスコード</th>
+                            <th>意味</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>修飾子</th>
+                            <th>使い方</th>
+                            <th>意味</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>public</th>
+                            <td><code>public name: string</code></td>
+                            <td>インスタンス化後にクラス内外からアクセスが可能</td>
+                        </tr>
+                        <tr>
+                            <th>private</th>
+                            <td><code>private password: string</code></td>
+                            <td>インスタンス化後にクラスからのみアクセスが可能</td>
+                        </tr>
+                        <tr>
+                            <th>protected</th>
+                            <td><code>protected updateData(){}</code></td>
+                            <td>インスタンス化後に継承クラス内およびクラス内からアクセスが可能</td>
+                        </tr>
+                        <tr>
+                            <th>static</th>
+                            <td><code>static malePrefix: string = 'Mr.';</code></td>
+                            <td>インスタンス化されていない静的なクラス内を使用してアクセスが可能</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Blockquate -->
+            <div>
+                <blockquote>
+                    <p>2019年の時点で、GitHub によると、Javaは、特にクライアント/サーバー型のWebアプリケーションで使用されている<strong>最も人気のあるプログラミング言語</strong>の1つであり、900万人の開発者がいると報告されている[14]。</p>
+                    <cite><a href="https://ja.wikipedia.org/wiki/Java" target="_blank">Wikipedia</a></cite>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
