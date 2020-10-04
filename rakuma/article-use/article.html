@@ -59,34 +59,35 @@
         <pre class="wp-block-code"><code class="lang-html">
 &lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;ja&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-&lt;title&gt;Demo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;script src=&quot;./dist/hello.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        &lt;title&gt;Demo&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;script src=&quot;./dist/hello.js&quot;&gt;&lt;/script&gt;
+    &lt;/body&gt;
 &lt;/html&gt;
         </code></pre>
     </div>
     <div>
         <pre class="wp-block-code"><code class="lang-javascript">
 class User {
-private _loginId: string = '';
+    private _loginId: string = '';
 
-constructor(public person: Person, loginId: string) {
-this.person = person;
-this._loginId = loginId;
-}
+    constructor(public person: Person, loginId: string) {
+        this.person = person;
+        this._loginId = loginId;
+    }
 
-get loginId() {
-return this._loginId;
-}
+    get loginId() {
+        return this._loginId;
+    }
 
-greeting() {
-console.log(`Hello, ${this.person.gender === 'male' ? 'Mr.' : 'Ms.'}${this.person.name}`);
-}
+    greeting() {
+        console.log(`Hello, ${this.person.gender === 'male' ? 'Mr.' : 'Ms.'}${this.person.name}`);
+    }
 }
         </code></pre>
     </div>
@@ -116,7 +117,7 @@ yarn-error.log
     <div>
         <pre class="wp-block-code"><code class="lang-json">
 "dependencies": {
-"tslib": "^2.0.1"
+    "tslib": "^2.0.1"
 }
         </code></pre>
     </div>
@@ -124,9 +125,9 @@ yarn-error.log
         <pre class="wp-block-code"><code class="lang-java">
 // 二次元配列の要素をインデックス番号の昇順に出力する
 for (int i = 0; i &lt; board.length; i++) {
-for (int j = 0; j &lt; board.length; j++) {
-System.out.println(board[i][j]);
-}
+    for (int j = 0; j &lt; board.length; j++) {
+        System.out.println(board[i][j]);
+    }
 }
         </code></pre>
     </div>
