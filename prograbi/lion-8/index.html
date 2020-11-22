@@ -8,30 +8,28 @@
 </head>
 
 <body>
-    <!-- index.html にコピペして作成してください -->
-    <button onclick="_onClickBtn(event);">課題１のボタンです</button>
-    <div id="count">0</div>
+    <!-- 【イベント処理】課題１．index.html にコピペして作成してください -->
+    <div>
+        <button onclick="_onClickCountBtn(event);">課題１のボタンです</button>
+        <div id="count">0</div>
+    </div>
 
-    <script>
-        const num = 3;
+    <!-- 【イベント処理】課題２．index.html にコピペして作成してください -->
+    <div>
+        <button onclick="_onClickHideBtn(event);">課題２のボタンです</button>
+        <div id="hide">押されたら消えます</div>
+    </div>
 
-        function _onClickBtn(e) {
+    <!-- 【イベント処理】課題３．index.html にコピペして作成してください -->
+    <div data-value="Good morning" onclick="console.log('あいさつ', event.currentTarget.getAttribute('data-value'));">
+        ここは親要素<strong>ここは子要素</strong>
+    </div>
 
-            let countElement = document.getElementById('count');
-            let count = countElement.innerText * 1;
-
-
-            // if(++count % num === 0 || String(count).indexOf(num) !== -1) {
-            //     countElement.style = 'color: red;';
-            // } else {
-            //     countElement.style = '';
-            // }
-
-            console.log(`countの値は${count + 1}です`);
-
-            countElement.innerText = ++count;
-        }
-    </script>
+    <!-- 【DOM操作】課題４．これは index.html にコピペしてください -->
+    <select name="feeling" id="feeling">
+        <!-- ここにJavaScriptで option を追加します -->
+    </select>
+    <script src="./index.js"></script>
 </body>
 
 </html>
