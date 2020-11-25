@@ -1,93 +1,48 @@
 'use strict';
 
-class User {
-
-    firstName = '';
-    lastName = '';
-
-    #id = 1;
-    constructor(firstName, lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+// 【JS】オブジェクト指向プログラミング 課題１
+class Animal {
+    name = '';
+    weight = 0;
+    constructor(name, weight) {
+        this.name = name;
+        this.weight = weight;
     }
 
-    fullname() {
-        console.log(this.firstName + ' ' + this.lastName);
-    }
-
-    static sayHello() {
-        console.log('こんにちは');
-    }
-
-    get id() {
-        return this.#id;
+    /**
+     * 【JS】オブジェクト指向プログラミング 課題２
+     * weightを0.5追加し、増加後の数値をコンソールに出力します。
+     */
+    eat() {
+        this.weight += 0.5;
+        console.log(`現在のweightは${this.weight}です。`)
     }
 }
 
-class newUser extends User {
-    age = 1;
-    gender = 'male';
-    constructor(age, gender) {
-        super('Taro', 'Rakuma');
-        this.age = age;
-        this.gender = gender;
+// 【JS】オブジェクト指向プログラミング 課題３
+const animal1 = new Animal('ココ', 500);
+
+// 【JS】オブジェクト指向プログラミング 課題４
+animal1.eat(); // 現在のweightは500.5です。
+
+// 【JS】オブジェクト指向プログラミング 課題５
+class Dog extends Animal {
+
+    constructor(name, weight) {
+        super(name, weight);
     }
 
-    fullname() {
-        // super.fullname();
-    }
-}
-
-const user = new User('Taro', 'Rakuma');
-// user.fullname();
-// User.fullname(); // static はクラスからは呼び出せない
-
-// User.sayHello();
-// user.sayHello(); // static はインスタンスからは呼び出せない
-
-// user.firstName = 'Hanako';
-// console.log(user.firstName);
-
-// user.#id = 4;
-// console.log(user.id);
-
-
-const reqResData = '{"page":2,"per_page":6,"total":12,"total_pages":2,"data":[{"id":7,"email":"michael.lawson@reqres.in","first_name":"Michael","last_name":"Lawson","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/follettkyle/128.jpg"},{"id":8,"email":"lindsay.ferguson@reqres.in","first_name":"Lindsay","last_name":"Ferguson","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/araa3185/128.jpg"},{"id":9,"email":"tobias.funke@reqres.in","first_name":"Tobias","last_name":"Funke","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/vivekprvr/128.jpg"},{"id":10,"email":"byron.fields@reqres.in","first_name":"Byron","last_name":"Fields","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/russoedu/128.jpg"},{"id":11,"email":"george.edwards@reqres.in","first_name":"George","last_name":"Edwards","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/mrmoiree/128.jpg"},{"id":12,"email":"rachel.howell@reqres.in","first_name":"Rachel","last_name":"Howell","avatar":"https://s3.amazonaws.com/uifaces/faces/twitter/hebertialmeida/128.jpg"}],"ad":{"company":"StatusCode Weekly","url":"http://statuscode.org/","text":"A weekly newsletter focusing on software development, infrastructure, the server, performance, and the stack end of things."}}';
-const jsObject = JSON.parse(reqResData);
-
-console.log(jsObject);
-
-// ReqResのUserデータを class ReqResUser を使って 出力してみよう
-
-class ReqResUser {
-    constructor(userObj) {
-        this.firstName = userObj['first_name'];
-        this.lastName = userObj['last_name'];
-        this.avatar = userObj.avatar;
-        this.id = userObj.id;
-        this.email = userObj.email;
-    }
-
-    fullname() {
-        return this.firstName + ' ' + this.lastName;
-    }
-
-    htmlTags() {
-        return `
-            <div class="user">
-                <img src="${this.avatar}" alt="${this.fullname()}の画像">
-                <span>${this.fullname()}</span>
-            </div>
-        `;
+    /**
+     * weightを1追加し、増加後の数値をコンソールに出力します。
+     */
+    eat() {
+        this.weight += 1;
+        console.log(`現在のweightは${this.weight}です。`)
     }
 }
 
-let htmlTags = '';
-for (let i = 0; i < jsObject.data.length; i++) {
-    const user = new ReqResUser(jsObject.data[i]);
-    user.fullname();
-    htmlTags += user.htmlTags();
+// 【JS】オブジェクト指向プログラミング 課題６
+const dog1 = new Dog('ポチ', 2000);
 
-}
-const userListEle = document.getElementById('usersList');
-userListEle.innerHTML = htmlTags;
+// 【JS】オブジェクト指向プログラミング 課題７
+dog1.eat(); // 現在のweightは2001です。
