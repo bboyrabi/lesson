@@ -1,0 +1,51 @@
+/* Reset CSS */
+input[type="submit"],
+input[type="button"] {
+  border-radius: 0;
+  -webkit-box-sizing: content-box;
+  -webkit-appearance: button;
+  appearance: button;
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+input[type="submit"]::-webkit-search-decoration,
+input[type="button"]::-webkit-search-decoration {
+  display: none;
+}
+input[type="submit"]::focus,
+input[type="button"]::focus {
+  outline-offset: -2px;
+}
+
+
+/* Page CSS */
+h1 {
+    font-size: 1.8rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 2.8rem;
+    font-size: 2rem;
+    margin-bottom: 14px;
+}
+
+#topImage {
+    background-image: url('../images/hero.jpg');
+    height: calc(100vw * 330 / 1280);
+    max-height: 330px;
+}
+
+.lead {
+    margin-top: 26px;
+    line-height: 1.4rem;
+    font-size: 0.9rem;
+    display: block;
+}
+
+.btn-wrapper {
+    width: 400px;
+    max-width: 100%;
+}
